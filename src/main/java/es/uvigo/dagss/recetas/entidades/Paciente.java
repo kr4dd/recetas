@@ -37,6 +37,12 @@ public class Paciente extends Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoPaciente estado;
 
+    @ManyToOne
+    private CentroDeSalud centroDeSalud;
+
+    @ManyToOne
+    private Medico medico;
+
     public Direccion getDireccion() {
         return direccion;
     }

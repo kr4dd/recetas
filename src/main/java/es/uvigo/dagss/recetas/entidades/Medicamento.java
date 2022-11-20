@@ -1,10 +1,11 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue(value = "MEDICAMENTO")
-public class Medicamento {
+public class Medicamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

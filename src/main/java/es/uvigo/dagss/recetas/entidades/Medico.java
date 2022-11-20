@@ -29,6 +29,9 @@ public class Medico extends Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoMedico estado;
 
+    @ManyToOne
+    private CentroDeSalud centroDeSalud;
+
     public Medico() {
         super(TipoUsuario.MEDICO);
     }

@@ -1,9 +1,10 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class Direccion {
+public class Direccion implements Serializable {
     private String domicilio;
     private String localidad;
     private String codigoPostal;
