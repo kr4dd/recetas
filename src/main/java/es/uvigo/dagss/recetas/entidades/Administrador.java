@@ -2,20 +2,27 @@ package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue(value = "ADMINISTRADOR")
 public class Administrador extends Usuario implements Serializable {
 
-    // Anadir atributos propios
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "EMAIL_ADMINISTRADOR")
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoAdministrador estado;
+
+    @Column(name = "NOMBRE_ADMINISTRADOR")
+    private String nombre;
+
     public Administrador() {
-        super(TipoUsuario.ADMINISTRADOR); 
+        super(TipoUsuario.ADMINISTRADOR);
     }
-
-
 
 }

@@ -1,18 +1,45 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue(value = "PACIENTE")
 public class Paciente extends Usuario implements Serializable {
 
-	// Anadir atributos propios
-   
+    @Id
+    @Column(name = "DNI_PACIENTE")
+    private String DNI;
+
+    @Column(name = "NOMBRE_PACIENTE")
+    private String nombre;
+
+    @Column(name = "APELLIDOS_PACIENTE")
+    private String apellidos;
+
+    @Column(name = "TLFNO_PACIENTE")
+    private String telefono;
+
+    private String numTarjetaSanitaria;
+
+    private String NSS;
+
+    @Column(name = "EMAIL_PACIENTE")
+    private String email;
+
+    @Embedded
+    private Direccion direccion;
+
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPaciente estado;
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
 
     public Paciente() {
         super(TipoUsuario.PACIENTE);        
