@@ -2,8 +2,8 @@ package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,7 +14,7 @@ public class Agenda implements Serializable {
     private Long id;
 
     @Temporal(TemporalType.TIME)
-    private Time hora;
+    private Date hora;
 
     @Enumerated(EnumType.STRING)
     private EstadoAgenda estado;

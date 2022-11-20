@@ -7,7 +7,6 @@ import javax.persistence.*;
 @DiscriminatorValue(value = "MEDICO")
 public class Medico extends Usuario implements Serializable {
 
-    @Id
     @Column(name = "DNI_MEDICO")
     private String DNI;
 

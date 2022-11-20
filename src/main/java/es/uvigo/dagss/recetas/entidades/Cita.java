@@ -21,7 +21,7 @@ public class Cita implements Serializable {
     private Date fecha;
 
     @Temporal(TemporalType.TIME)
-    private Time hora;
+    private Date hora;
 
     @Id
     @ManyToOne

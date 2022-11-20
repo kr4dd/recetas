@@ -8,10 +8,6 @@ import javax.persistence.*;
 @DiscriminatorValue(value = "ADMINISTRADOR")
 public class Administrador extends Usuario implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "EMAIL_ADMINISTRADOR")
     private String email;
 
