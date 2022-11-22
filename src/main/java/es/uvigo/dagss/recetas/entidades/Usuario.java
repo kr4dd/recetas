@@ -22,46 +22,48 @@ import javax.persistence.TemporalType;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
 @DiscriminatorColumn(name = "TIPO_USUARIO",
-        discriminatorType = DiscriminatorType.STRING,
-        length = 20)
+		discriminatorType = DiscriminatorType.STRING,
+		length = 20)
 public abstract class Usuario implements Serializable {
 
-    @Id
-    @TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)           
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
-    private Long id;
+	@Id
+	@TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
+	private Long id;
 
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_USUARIO", length = 20)
-    protected TipoUsuario tipo;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_USUARIO", length = 20)
+	protected TipoUsuario tipo;
 
-    private String login;
-    private String password;
+	private String login;
+	private String password;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaAlta;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date ultimoAcceso;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ultimoAcceso;
+	private Boolean activo = true;
 
-    public Usuario() {
-        this.fechaAlta = Calendar.getInstance().getTime();
-        this.ultimoAcceso = Calendar.getInstance().getTime();
-    }
+	public Usuario() {
+		this.fechaAlta = Calendar.getInstance().getTime();
+		this.ultimoAcceso = Calendar.getInstance().getTime();
+		this.activo = true;
+	}
 
-    public Usuario(TipoUsuario tipo) {
-    	this();
-        this.tipo = tipo;
-    }
+	public Usuario(TipoUsuario tipo) {
+		this();
+		this.tipo = tipo;
+	}
 
-    public Usuario(TipoUsuario tipo, String login, String password) {
-    	this();
-        this.tipo = tipo;
-        this.login = login;
-        this.password = password;
-    }
+	public Usuario(TipoUsuario tipo, String login, String password) {
+		this();
+		this.tipo = tipo;
+		this.login = login;
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
@@ -112,6 +114,22 @@ public abstract class Usuario implements Serializable {
 		this.password = password;
 	}
 
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
+	public void activar() {
+		this.activo = true;
+	}
+
+	public void desactivar() {
+		this.activo = false;
+	}
+
 	@Override
 	public int hashCode() {
 		if (this.id !=null)
@@ -134,7 +152,4 @@ public abstract class Usuario implements Serializable {
 				&& Objects.equals(login, other.login);
 	}
 
-
-    
- 
 }
