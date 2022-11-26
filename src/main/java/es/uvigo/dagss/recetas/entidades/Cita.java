@@ -30,8 +30,11 @@ public class Cita implements Serializable {
     @ManyToOne
     private Paciente paciente;
 
-    public Cita(Long numCita, EstadoCita estado, Integer duracion, Date fecha, Date hora, Medico medico, Paciente paciente) {
-        this.numCita = numCita;
+    public Cita() {
+
+    }
+
+    public Cita(EstadoCita estado, Integer duracion, Date fecha, Date hora, Medico medico, Paciente paciente) {
         this.estado = estado;
         this.duracion = duracion;
         this.fecha = fecha;

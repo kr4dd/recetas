@@ -28,8 +28,11 @@ public class Medicamento implements Serializable {
     @ManyToOne
     private Prescripcion prescripcion;
 
-    public Medicamento(Long id, String nombreComercial, String principioActivo, String familia, Integer numDosis, String fabricante, EstadoMedicamento estado, Prescripcion prescripcion) {
-        this.id = id;
+    public Medicamento() {
+
+    }
+
+    public Medicamento(String nombreComercial, String principioActivo, String familia, Integer numDosis, String fabricante, EstadoMedicamento estado, Prescripcion prescripcion) {
         this.nombreComercial = nombreComercial;
         this.principioActivo = principioActivo;
         this.familia = familia;

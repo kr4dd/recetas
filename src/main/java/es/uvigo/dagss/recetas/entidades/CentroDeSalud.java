@@ -25,8 +25,11 @@ public class CentroDeSalud implements Serializable {
     @Embedded
     private Direccion direccion;
 
-    public CentroDeSalud(Long id, String nombre, String email, EstadoCentroSalud estado, String telefono, Direccion direccion) {
-        this.id = id;
+    public CentroDeSalud() {
+
+    }
+
+    public CentroDeSalud(String nombre, String email, EstadoCentroSalud estado, String telefono, Direccion direccion) {
         this.nombre = nombre;
         this.email = email;
         this.estado = estado;

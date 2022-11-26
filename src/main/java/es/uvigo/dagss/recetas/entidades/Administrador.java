@@ -33,7 +33,8 @@ public class Administrador extends Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    public Administrador(TipoUsuario tipo, String login, String password, String email, EstadoAdministrador estado, String nombre) {
+    public Administrador(TipoUsuario tipo, String login, String password, String email,
+                         EstadoAdministrador estado, String nombre) {
         super(tipo, login, password);
         this.email = email;
         this.estado = estado;

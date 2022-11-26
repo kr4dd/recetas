@@ -32,8 +32,11 @@ public class Receta implements Serializable {
     @ManyToOne
     private Prescripcion prescripcion;
 
-    public Receta(Long numReceta, EstadoReceta estado, Integer numUdsMedicamento, Date fechaValidezInicial, Date fechaValidezFinal, Direccion direccion, Farmacia farmacia, Prescripcion prescripcion) {
-        this.numReceta = numReceta;
+    public Receta() {
+
+    }
+
+    public Receta(EstadoReceta estado, Integer numUdsMedicamento, Date fechaValidezInicial, Date fechaValidezFinal, Direccion direccion, Farmacia farmacia, Prescripcion prescripcion) {
         this.estado = estado;
         this.numUdsMedicamento = numUdsMedicamento;
         this.fechaValidezInicial = fechaValidezInicial;

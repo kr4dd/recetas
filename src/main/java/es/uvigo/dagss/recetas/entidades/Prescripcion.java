@@ -36,8 +36,11 @@ public class Prescripcion implements Serializable {
     @OrderBy("numReceta asc")
     private List<Receta> recetas = new ArrayList<>();
 
-    public Prescripcion(Long id, Date fechaInicioPrescripcion, Date fechaFinPrescripcion, Double dosisDiaria, String indicaciones, EstadoPrescripcion estado, Medico medico, Paciente paciente, List<Receta> recetas) {
-        this.id = id;
+    public Prescripcion() {
+
+    }
+
+    public Prescripcion(Date fechaInicioPrescripcion, Date fechaFinPrescripcion, Double dosisDiaria, String indicaciones, EstadoPrescripcion estado, Medico medico, Paciente paciente, List<Receta> recetas) {
         this.fechaInicioPrescripcion = fechaInicioPrescripcion;
         this.fechaFinPrescripcion = fechaFinPrescripcion;
         this.dosisDiaria = dosisDiaria;
