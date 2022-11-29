@@ -3,7 +3,6 @@ package es.uvigo.dagss.recetas.daos;
 import es.uvigo.dagss.recetas.entidades.EstadoFarmaceutico;
 import es.uvigo.dagss.recetas.entidades.Farmacia;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

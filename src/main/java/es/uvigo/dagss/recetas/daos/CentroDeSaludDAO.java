@@ -2,20 +2,28 @@ package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.CentroDeSalud;
 import es.uvigo.dagss.recetas.entidades.EstadoCentroSalud;
+import es.uvigo.dagss.recetas.entidades.Medico;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface CentroDeSaludDAO extends JpaRepository<CentroDeSalud, Long> {
-    List<CentroDeSalud> findByNombreContaining(String nombre);
     List<CentroDeSalud> findByEmailContaining(String email);
     List<CentroDeSalud> findByTelefonoContaining(String telefono);
-    List<CentroDeSalud> findByEstadoContaining(EstadoCentroSalud estado);
+    List<CentroDeSalud> findByEstado(String estado);
 
     List<CentroDeSalud> findByDireccionDomicilio(String domicilio);
     List<CentroDeSalud> findByDireccionCodigoPostal(String codigoPostal);
-    List<CentroDeSalud> findByDireccionLocalidad(String localidad);
-    List<CentroDeSalud> findByDireccionProvincia(String provincia);
+
+    @Query("SELECT c FROM CentroDeSalud AS c WHERE c.nombre LIKE %:nombre%")
+    List<CentroDeSalud> findByPatronNombre(@Param("nombre") String nombre);
+
+    @Query("SELECT c FROM CentroDeSalud AS c WHERE c.direccion.localidad LIKE %:localidad%")
+    List<CentroDeSalud> findByDireccionLocalidad(@Param("localidad") String localidad);
+
+    @Query("SELECT c FROM CentroDeSalud AS c WHERE c.direccion.provincia LIKE %:provincia%")
+    List<CentroDeSalud> findByDireccionProvincia(@Param("provincia") String provincia);
 
 }

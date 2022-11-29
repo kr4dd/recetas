@@ -1,41 +1,24 @@
 package es.uvigo.dagss.recetas.servicios;
 
-import es.uvigo.dagss.recetas.daos.MedicoDAO;
 import es.uvigo.dagss.recetas.entidades.Medico;
-import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
-@Service
-public class MedicoService {
-    private final MedicoDAO medicoDAO;
+public interface MedicoService {
+    Medico crear(Medico medico);
+    Medico modificar(Medico medico);
+    void eliminar(Medico medico);
+    Optional<Medico> buscarPorDNI(String dni);
+    List<Medico> buscarTodos();
 
-    public MedicoService(MedicoDAO medicoDAO) {
-        this.medicoDAO = medicoDAO;
-    }
+    List<Medico> buscarPorNombre(String nombre);
+    List<Medico> buscarPorApellidos(String apellidos);
+    List<Medico> buscarCentroDeSaludPorId(Long id);
+    List<Medico> buscarPorLocalidad(String localidad);
+    List<Medico> buscarPorProvincia(String provincia);
 
-    public Medico create(Medico medico) {
-        return medicoDAO.save(medico);
-    }
 
-    public Medico update(Medico medico) {
-        return medicoDAO.save(medico);
-    }
 
-    public Medico change(Medico medico) {
-        return medicoDAO.save(medico);
-    }
 
-    public boolean remove(String id) {
-        if (medicoDAO.findById(id).isPresent()) {
-            medicoDAO.deleteById(id);
-            return true;
-        }
-
-        return false;
-    }
-
-    public Optional<Medico> find(String id) {
-        return medicoDAO.findById(id);
-    }
 }

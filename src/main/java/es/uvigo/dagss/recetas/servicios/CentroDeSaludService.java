@@ -1,41 +1,26 @@
 package es.uvigo.dagss.recetas.servicios;
 
-import es.uvigo.dagss.recetas.daos.CentroDeSaludDAO;
 import es.uvigo.dagss.recetas.entidades.CentroDeSalud;
-import org.springframework.stereotype.Service;
+import es.uvigo.dagss.recetas.entidades.EstadoCentroSalud;
 
+import java.util.List;
 import java.util.Optional;
 
-@Service
-public class CentroDeSaludService {
-    private final CentroDeSaludDAO centroDeSaludDAO;
+public interface CentroDeSaludService {
+    CentroDeSalud crear(CentroDeSalud centroDeSalud);
+    CentroDeSalud modificar(CentroDeSalud centroDeSalud);
+    void eliminar(CentroDeSalud centroDeSalud);
+    Optional<CentroDeSalud> buscarPorId(Long id);
+    List<CentroDeSalud> buscarTodos();
 
-    public CentroDeSaludService(CentroDeSaludDAO centroDeSaludDAO) {
-        this.centroDeSaludDAO = centroDeSaludDAO;
-    }
+    List<CentroDeSalud> buscarPorNombre(String nombre);
+    List<CentroDeSalud> buscarPorEmail(String email);
+    List<CentroDeSalud> buscarPorTelefono(String telefono);
+    List<CentroDeSalud> buscarPorEstado(String estado);
 
-    public CentroDeSalud create(CentroDeSalud centroDeSalud) {
-        return centroDeSaludDAO.save(centroDeSalud);
-    }
+    List<CentroDeSalud> buscarPorDomicilio(String domicilio);
+    List<CentroDeSalud> buscarPorCodigoPostal(String codigoPostal);
+    List<CentroDeSalud> buscarPorLocalidad(String localidad);
+    List<CentroDeSalud> buscarPorProvincia(String provincia);
 
-    public CentroDeSalud update(CentroDeSalud centroDeSalud) {
-        return centroDeSaludDAO.save(centroDeSalud);
-    }
-
-    public CentroDeSalud change(CentroDeSalud centroDeSalud) {
-        return centroDeSaludDAO.save(centroDeSalud);
-    }
-
-    public boolean remove(Long id) {
-        if (centroDeSaludDAO.findById(id).isPresent()) {
-            centroDeSaludDAO.deleteById(id);
-            return true;
-        }
-
-        return false;
-    }
-
-    public Optional<CentroDeSalud> find(Long id) {
-        return centroDeSaludDAO.findById(id);
-    }
 }
