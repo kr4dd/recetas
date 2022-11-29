@@ -17,10 +17,7 @@ public class Cita implements Serializable {
     private Integer duracion; //Minutos
 
     @Temporal(TemporalType.DATE)
-    private Date fecha;
-
-    @Temporal(TemporalType.TIME)
-    private Date hora;
+    private Date fechaYHora;
 
     @ManyToOne
     private Medico medico;
@@ -32,11 +29,10 @@ public class Cita implements Serializable {
 
     }
 
-    public Cita(EstadoCita estado, Integer duracion, Date fecha, Date hora, Medico medico, Paciente paciente) {
+    public Cita(EstadoCita estado, Integer duracion, Date fechaYHora, Medico medico, Paciente paciente) {
         this.estado = estado;
         this.duracion = duracion;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaYHora = fechaYHora;
         this.medico = medico;
         this.paciente = paciente;
     }
@@ -66,19 +62,11 @@ public class Cita implements Serializable {
     }
 
     public Date getFecha() {
-        return fecha;
+        return fechaYHora;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
+        this.fechaYHora = fechaYHora;
     }
 
     public Medico getMedico() {
@@ -103,8 +91,7 @@ public class Cita implements Serializable {
                 "numCita=" + numCita +
                 ", estado=" + estado +
                 ", duracion=" + duracion +
-                ", fecha=" + fecha +
-                ", hora=" + hora +
+                ", fechaYHora=" + fechaYHora +
                 ", medico=" + medico +
                 ", paciente=" + paciente +
                 '}';

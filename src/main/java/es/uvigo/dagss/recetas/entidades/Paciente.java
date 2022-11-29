@@ -85,7 +85,10 @@ public class Paciente extends Usuario implements Serializable {
         this.citas = citas;
     }
 
-    public Paciente(TipoUsuario tipo, String login, String password, String dni, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
+    public Paciente(TipoUsuario tipo, String login, String password, String dni, String nombre, String apellidos,
+                    String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion,
+                    Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico,
+                    List<Cita> citas) {
         super(tipo, login, password);
         this.dni = dni;
         this.nombre = nombre;

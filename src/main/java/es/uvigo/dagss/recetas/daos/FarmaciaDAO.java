@@ -24,5 +24,5 @@ public interface FarmaciaDAO extends JpaRepository<Farmacia, String> {
     estos casos búsquedas aproximadas (tipo LIKE en SQL).
      */
 
-    
+
 }

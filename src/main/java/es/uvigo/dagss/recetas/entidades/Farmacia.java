@@ -62,7 +62,9 @@ public class Farmacia extends Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Farmacia(TipoUsuario tipo, String login, String password, String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+    public Farmacia(TipoUsuario tipo, String login, String password, String dni, String numColegiado, String email,
+                    String telefono, String nombreFarmaceutico, String apellidosFarmaceutico,
+                    String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
         super(tipo, login, password);
         this.dni = dni;
         this.numColegiado = numColegiado;
