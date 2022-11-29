@@ -18,4 +18,11 @@ public interface FarmaciaDAO extends JpaRepository<Farmacia, String> {
     List<Farmacia> findByDireccionCodigoPostal(String codigoPostal);
     List<Farmacia> findByDireccionLocalidad(String localidad);
     List<Farmacia> findByDireccionProvincia(String provincia);
+
+    /*
+    La lista de farmacias podrá filtrarse por nombre de establecimiento, localidad o provincia, permitiéndose en todos
+    estos casos búsquedas aproximadas (tipo LIKE en SQL).
+     */
+
+    
 }
