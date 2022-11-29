@@ -16,8 +16,8 @@ public class Cita implements Serializable {
 
     private Integer duracion; //Minutos
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaYHora;
+    @Embedded
+    private FechaYhora fechaYHora;
 
     @ManyToOne
     private Medico medico;
@@ -29,7 +29,8 @@ public class Cita implements Serializable {
 
     }
 
-    public Cita(EstadoCita estado, Integer duracion, Date fechaYHora, Medico medico, Paciente paciente) {
+    public Cita(EstadoCita estado, Integer duracion, FechaYhora fechaYHora,
+                Medico medico, Paciente paciente) {
         this.estado = estado;
         this.duracion = duracion;
         this.fechaYHora = fechaYHora;
@@ -61,11 +62,11 @@ public class Cita implements Serializable {
         this.duracion = duracion;
     }
 
-    public Date getFecha() {
+    public FechaYhora getFechaYHora() {
         return fechaYHora;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFechaYHora(FechaYhora fechaYHora) {
         this.fechaYHora = fechaYHora;
     }
 

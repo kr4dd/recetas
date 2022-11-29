@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface AdministradorDAO extends JpaRepository<Administrador, Long> {
     List<Administrador> findByNombreContaining(String nombre);
     List<Administrador> findByEmailContaining(String email);

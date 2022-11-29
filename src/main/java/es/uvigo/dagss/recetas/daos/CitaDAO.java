@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface CitaDAO extends JpaRepository<Cita, Long> {
     List<Cita> findByMedicoDni(String dni);
     List<Cita> findByPacienteDni(String dni);
@@ -27,6 +26,6 @@ public interface CitaDAO extends JpaRepository<Cita, Long> {
     citas registradas para el día de hoy, indicando su datos esenciales (nombre de paciente, fecha y hora, duración, estado).
      */
 
-    
+
 
 }

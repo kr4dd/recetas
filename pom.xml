@@ -12,7 +12,7 @@
 	<artifactId>recetas</artifactId>
 	<version>0.1</version>
 	<name>recetas</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Recetas proyecto</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

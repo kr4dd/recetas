@@ -78,8 +78,8 @@ public class RecetasApplication implements CommandLineRunner {
 		farmacia1 = farmaciaDAO.save(farmacia1);
 
 
-		Date fecha2 = new Date();
-		Cita cita1 = new Cita(EstadoCita.PLANIFICADA, 20, fecha2, medico1, paciente1);
+		FechaYhora fechaYhora = new FechaYhora();
+		Cita cita1 = new Cita(EstadoCita.PLANIFICADA, 20, fechaYhora, medico1, paciente1);
 
 		cita1 = citaDAO.save(cita1);
 	}
@@ -110,6 +110,32 @@ public class RecetasApplication implements CommandLineRunner {
 			System.out.println("\t" + m.getNombre());
 		}
 		System.out.println("-----------");
+
+
+		List<Paciente> pacientes = pacienteDAO.findByDni("maria");
+		System.out.println("[+]Todos los pacientes:");
+		for (Paciente p : pacientes) {
+			System.out.println("\t" + p.getNombre());
+		}
+		System.out.println("-----------");
+
+
+		List<Farmacia> farmacias = farmaciaDAO.findByDireccionProvincia("Ourense");
+		System.out.println("[+]Todos las farmacias:");
+		for (Farmacia f : farmacias) {
+			System.out.println("\t" + f.getDNI());
+		}
+		System.out.println("-----------");
+
+
+		//Pero con exception de LAZY, para evitarlo se debe establecer un servicio
+		// indicando transactional, ya que citas recibe multiples accesos
+//		List<Cita> citas = citaDAO.findByMedicoDni("77758585L");
+//		System.out.println("[+]Todos las citas:");
+//		for (Cita c : citas) {
+//			System.out.println("\t" + c.toString());
+//		}
+//		System.out.println("-----------");
 
 	}
 

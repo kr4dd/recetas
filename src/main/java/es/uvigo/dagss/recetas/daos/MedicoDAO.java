@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface MedicoDAO extends JpaRepository<Medico, String> {
     // Filtrado de nombre del medico
     @Query("SELECT m FROM Medico AS m WHERE m.nombre LIKE %:patron%")

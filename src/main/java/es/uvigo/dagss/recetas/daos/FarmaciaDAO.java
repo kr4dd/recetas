@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface FarmaciaDAO extends JpaRepository<Farmacia, String> {
     List<Farmacia> findByNombreEstablecimientoContaining(String nombre);
     List<Farmacia> findByEmailContaining(String email);
