@@ -11,7 +11,7 @@ import java.util.List;
 public class Paciente extends Usuario implements Serializable {
 
     @Column(name = "DNI_PACIENTE")
-    private String DNI;
+    private String dni;
 
     @Column(name = "NOMBRE_PACIENTE")
     private String nombre;
@@ -52,8 +52,8 @@ public class Paciente extends Usuario implements Serializable {
         super(TipoUsuario.PACIENTE);        
     }
 
-    public Paciente(String DNI, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
-        this.DNI = DNI;
+    public Paciente(String dni, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
+        this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
@@ -68,9 +68,9 @@ public class Paciente extends Usuario implements Serializable {
         this.citas = citas;
     }
 
-    public Paciente(TipoUsuario tipo, String DNI, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
+    public Paciente(TipoUsuario tipo, String dni, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
         super(tipo);
-        this.DNI = DNI;
+        this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
@@ -85,9 +85,9 @@ public class Paciente extends Usuario implements Serializable {
         this.citas = citas;
     }
 
-    public Paciente(TipoUsuario tipo, String login, String password, String DNI, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
+    public Paciente(TipoUsuario tipo, String login, String password, String dni, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
         super(tipo, login, password);
-        this.DNI = DNI;
+        this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
@@ -103,11 +103,11 @@ public class Paciente extends Usuario implements Serializable {
     }
 
     public String getDNI() {
-        return DNI;
+        return dni;
     }
 
     public void setDNI(String DNI) {
-        this.DNI = DNI;
+        this.dni = dni;
     }
 
     public String getNombre() {
@@ -209,7 +209,7 @@ public class Paciente extends Usuario implements Serializable {
     @Override
     public String toString() {
         return "Paciente{" +
-                "DNI='" + DNI + '\'' +
+                "DNI='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", telefono='" + telefono + '\'' +

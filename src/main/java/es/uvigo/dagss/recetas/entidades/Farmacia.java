@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Farmacia extends Usuario implements Serializable {
 
     @Column(name = "DNI_FARMACIA")
-    private String DNI;
+    private String dni;
 
     @Column(name = "NUMCOLE_FARMACEUTICO")
     private String numColegiado;
@@ -37,8 +37,8 @@ public class Farmacia extends Usuario implements Serializable {
         super(TipoUsuario.FARMACIA);
     }
 
-    public Farmacia(String DNI, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
-        this.DNI = DNI;
+    public Farmacia(String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+        this.dni = dni;
         this.numColegiado = numColegiado;
         this.email = email;
         this.telefono = telefono;
@@ -49,9 +49,9 @@ public class Farmacia extends Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Farmacia(TipoUsuario tipo, String DNI, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+    public Farmacia(TipoUsuario tipo, String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
         super(tipo);
-        this.DNI = DNI;
+        this.dni = dni;
         this.numColegiado = numColegiado;
         this.email = email;
         this.telefono = telefono;
@@ -62,9 +62,9 @@ public class Farmacia extends Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Farmacia(TipoUsuario tipo, String login, String password, String DNI, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+    public Farmacia(TipoUsuario tipo, String login, String password, String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
         super(tipo, login, password);
-        this.DNI = DNI;
+        this.dni = dni;
         this.numColegiado = numColegiado;
         this.email = email;
         this.telefono = telefono;
@@ -76,11 +76,11 @@ public class Farmacia extends Usuario implements Serializable {
     }
 
     public String getDNI() {
-        return DNI;
+        return dni;
     }
 
     public void setDNI(String DNI) {
-        this.DNI = DNI;
+        this.dni = dni;
     }
 
     public String getNumColegiado() {
@@ -150,7 +150,7 @@ public class Farmacia extends Usuario implements Serializable {
     @Override
     public String toString() {
         return "Farmacia{" +
-                "DNI='" + DNI + '\'' +
+                "DNI='" + dni + '\'' +
                 ", numColegiado='" + numColegiado + '\'' +
                 ", email='" + email + '\'' +
                 ", telefono='" + telefono + '\'' +

@@ -4,9 +4,11 @@ import es.uvigo.dagss.recetas.entidades.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PacienteDAO extends JpaRepository<Paciente, String> {
     // Filtrado de nombre del paciente
     @Query("SELECT p FROM Paciente AS p WHERE p.nombre LIKE %:patron%")

@@ -22,12 +22,12 @@ public class Cita implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date hora;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "dni")
     private Medico medico;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "dni")
     private Paciente paciente;
 
     public Cita() {
