@@ -23,11 +23,9 @@ public class Cita implements Serializable {
     private Date hora;
 
     @ManyToOne
-    @JoinColumn(name = "dni")
     private Medico medico;
 
     @ManyToOne
-    @JoinColumn(name = "dni")
     private Paciente paciente;
 
     public Cita() {
