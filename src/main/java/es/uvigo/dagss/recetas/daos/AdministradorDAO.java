@@ -1,7 +1,6 @@
 package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.Administrador;
-import es.uvigo.dagss.recetas.entidades.EstadoAdministrador;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
