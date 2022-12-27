@@ -14,6 +14,7 @@ public interface PacienteDAO extends JpaRepository<Paciente, String> {
 
     List<Paciente> findByNumTarjetaSanitaria(String numTarjetaSanitaria);
 
+    //NO LO ENCONTRE EN LAS HITORRIAS, PERO LO DEJAMOS TAMBIEN?????''
     List<Paciente> findByEmailContaining(String email);
 
     List<Paciente> findByNSS(String nss);
