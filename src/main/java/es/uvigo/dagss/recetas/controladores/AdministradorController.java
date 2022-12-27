@@ -1,6 +1,7 @@
 package es.uvigo.dagss.recetas.controladores;
 
 import es.uvigo.dagss.recetas.entidades.Administrador;
+import es.uvigo.dagss.recetas.entidades.EstadoAdministrador;
 import es.uvigo.dagss.recetas.servicios.AdministradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -81,8 +82,15 @@ public class AdministradorController {
         try {
             Optional<Administrador> administrador = administradorService.buscarPorId(id);
             if (administrador.isPresent()) {
-                administradorService.eliminar(administrador.get());
+                Administrador nuevoAdministrador = administrador.get();
+
+                nuevoAdministrador.setEstado(EstadoAdministrador.INACTIVO);
+
+                //Fijar administrador inactivo
+                administradorService.modificar(nuevoAdministrador);
+
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

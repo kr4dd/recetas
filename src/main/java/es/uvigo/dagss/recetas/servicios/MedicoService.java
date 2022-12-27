@@ -9,7 +9,7 @@ public interface MedicoService {
     Medico crear(Medico medico);
     Medico modificar(Medico medico);
     void eliminar(Medico medico);
-    Optional<Medico> buscarPorDNI(String dni);
+    Optional<Medico> buscarPorId(Long id);
     List<Medico> buscarTodos();
 
     List<Medico> buscarPorNombre(String nombre);

@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface MedicoDAO extends JpaRepository<Medico, String> {
+public interface MedicoDAO extends JpaRepository<Medico, Long> {
     // Filtrado de nombre del medico
     @Query("SELECT m FROM Medico AS m WHERE m.nombre LIKE %:patron%")
     List<Medico> findByPatronNombre(@Param("patron") String patron);
