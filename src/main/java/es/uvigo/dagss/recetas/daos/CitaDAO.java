@@ -1,4 +1,4 @@
-package es.uvigo.dagss.recetas.daos;
+    package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CitaDAO extends JpaRepository<Cita, Long> {
-    List<Cita> findByMedicoDni(String dni);
+    List<Cita> findByMedico(String dni);
     List<Cita> findByPacienteDni(String dni);
 
     /*1
