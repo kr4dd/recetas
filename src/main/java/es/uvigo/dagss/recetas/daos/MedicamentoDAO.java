@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 public interface MedicamentoDAO extends JpaRepository<Medicamento, String> {
  
-    /*DAO HECHO POR MIRI*/
+    /*DAO HECHO POR MIRI -------- todo OK*/ 
     /*La lista de medicamentos podrá filtrarse por nombre comercial, principio activo, fabricante o famila.*/
     @Query("SELECT m FROM Medicamento AS m WHERE m.nombreComercial LIKE %:patron%")
     List<Medicamento> findByNombreComercial(@Param("patron") String patron);

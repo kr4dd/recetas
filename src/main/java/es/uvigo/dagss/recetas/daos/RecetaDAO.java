@@ -20,9 +20,12 @@ public interface RecetaDAO extends JpaRepository<Receta, String> {
       prescripción las fechas de validez de cada receta (inical y final) y el número
        de unidades ("cajas") que se servirán en la receta
      */
-    @Query("SELECT r FROM Recetas AS r"+
+    @Query("SELECT r FROM Receta AS r "+
             "JOIN FETCH " +
             "r.prescripcion p WHERE p.paciente.numTarjetaSanitaria LIKE %:patron%")
-    List<Receta> findByNumTargetaSanit(@Param("patron") String patron);
+    List<Receta> findByNumTarjetaSanit(@Param("patron") String patron);
+
+    List<Receta> findByPrescripcionId(Long id);
+
     
 }
