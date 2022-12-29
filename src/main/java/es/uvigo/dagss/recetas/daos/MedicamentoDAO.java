@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-public interface MedicamentoDAO extends JpaRepository<Medicamento, String> {
+public interface MedicamentoDAO extends JpaRepository<Medicamento, Long> {
  
     /*DAO HECHO POR MIRI -------- todo OK*/ 
     /*La lista de medicamentos podrá filtrarse por nombre comercial, principio activo, fabricante o famila.*/
