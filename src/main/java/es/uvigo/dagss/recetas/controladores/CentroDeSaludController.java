@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +82,20 @@ public class CentroDeSaludController {
         }
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CentroDeSalud> crear(@RequestBody CentroDeSalud centroDeSalud) {
+        try {
+            //Creamos uno nuevo si no existe
+            CentroDeSalud nuevoCentroDeSalud = centroDeSaludService.crear(centroDeSalud);
+            URI uri = crearURICentroDeSalud(nuevoCentroDeSalud);
+
+            return ResponseEntity.created(uri).body(nuevoCentroDeSalud);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -124,5 +140,10 @@ public class CentroDeSaludController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    // Construye la URI del nuevo recurso creado con POST
+    private URI crearURICentroDeSalud(CentroDeSalud centroDeSalud) {
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(centroDeSalud.getId()).toUri();
     }
 }
