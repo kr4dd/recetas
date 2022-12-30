@@ -1,8 +1,6 @@
 package es.uvigo.dagss.recetas.controladores;
 
 
-import es.uvigo.dagss.recetas.entidades.Administrador;
-import es.uvigo.dagss.recetas.entidades.EstadoAdministrador;
 import es.uvigo.dagss.recetas.entidades.EstadoMedico;
 import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.servicios.MedicoService;
@@ -63,10 +61,8 @@ public class MedicoController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Medico> buscarPorDNI(@PathVariable("id") Long id) {
+    public ResponseEntity<Medico> buscarPorId(@PathVariable("id") Long id) {
         Optional<Medico> medico = medicoService.buscarPorId(id);
-
-        System.out.println(medico.get().getDni());
 
         if (medico.isPresent()) {
             return new ResponseEntity<>(medico.get(), HttpStatus.OK);

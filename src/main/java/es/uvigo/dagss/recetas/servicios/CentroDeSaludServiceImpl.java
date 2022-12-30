@@ -2,6 +2,7 @@ package es.uvigo.dagss.recetas.servicios;
 
 import es.uvigo.dagss.recetas.daos.CentroDeSaludDAO;
 import es.uvigo.dagss.recetas.entidades.CentroDeSalud;
+import es.uvigo.dagss.recetas.entidades.EstadoCentroSalud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,7 +66,7 @@ public class CentroDeSaludServiceImpl implements CentroDeSaludService {
     @Override
     @Transactional(readOnly = true)
     public List<CentroDeSalud> buscarPorEstado(String estado) {
-        return dao.findByEstado(estado);
+        return dao.findByEstado(EstadoCentroSalud.valueOf(estado));
     }
 
     @Override
