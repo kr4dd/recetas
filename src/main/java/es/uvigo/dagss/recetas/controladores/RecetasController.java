@@ -34,7 +34,6 @@ public class RecetasController {
     
     @GetMapping()
     public ResponseEntity<List<Receta>> buscarTodos(
-        
             @RequestParam(name = "prescripcion", required = false) Long prescripcion,
             @RequestParam(name = "numTarjetaSanitaria", required = false) String numTarjetaSanitaria)
     {
@@ -63,14 +62,13 @@ public class RecetasController {
     public ResponseEntity<Receta> buscarPorNumReceta(@PathVariable("id") Long numReceta) {
         Optional<Receta> receta = recetaService.buscarPorId(numReceta);
 
-        System.out.println(receta.get().getNumReceta());
-
         if (receta.isPresent()) {
             return new ResponseEntity<>(receta.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Receta> crear(@RequestBody Receta receta) {
         try {
@@ -92,7 +90,7 @@ public class RecetasController {
             if (receta.isPresent()) {
                 Receta nuevaReceta = receta.get();
 
-                nuevaReceta.setEstado(EstadoReceta.PLANIFACADA);
+                nuevaReceta.setEstado(EstadoReceta.ANULADA);
 
                 recetaService.modificar(nuevaReceta);
 
@@ -107,16 +105,6 @@ public class RecetasController {
         }
     }
 
-    /*
-        this.estado = estado;
-        this.numUdsMedicamento = numUdsMedicamento;
-        this.fechaValidezInicial = fechaValidezInicial;
-        this.fechaValidezFinal = fechaValidezFinal;
-        this.direccion = direccion;
-        this.farmacia = farmacia;
-        this.prescripcion = prescripcion;
-        
-    */
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Receta> modificar(@PathVariable("id") Long id, @RequestBody Receta receta) {
         Optional<Receta> recetaOptional = recetaService.buscarPorId(id);

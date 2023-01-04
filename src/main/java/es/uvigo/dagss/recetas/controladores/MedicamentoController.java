@@ -27,8 +27,7 @@ import es.uvigo.dagss.recetas.entidades.Medicamento;
 @RestController
 @RequestMapping(path = "/api/medicamentos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicamentoController {
- 
-    
+
     @Autowired
     MedicamentoService medicamentosService;
     
@@ -60,7 +59,7 @@ public class MedicamentoController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 }
-@GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Medicamento> buscarPorId(@PathVariable("id") Long id) {
         Optional<Medicamento> medicamento = medicamentosService.buscarPorId(id);
 
@@ -69,8 +68,9 @@ public class MedicamentoController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-}
-@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Medicamento> crear(@RequestBody Medicamento medicamento) {
         try {
             //Creamos uno nuevo si no existe
@@ -83,7 +83,7 @@ public class MedicamentoController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 }
-@DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
             Optional<Medicamento> mediacamento = medicamentosService.buscarPorId(id);

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FarmaciaDAO extends JpaRepository<Farmacia, String> {
+public interface FarmaciaDAO extends JpaRepository<Farmacia, Long> {
     List<Farmacia> findByNombreEstablecimientoContaining(String nombre);
     List<Farmacia> findByEmailContaining(String email);
     List<Farmacia> findByTelefonoContaining(String telefono);

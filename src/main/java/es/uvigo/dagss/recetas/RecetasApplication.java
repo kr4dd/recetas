@@ -99,7 +99,7 @@ public class RecetasApplication implements CommandLineRunner {
 		Prescripcion prescripcion1 =  new Prescripcion(new Date(), new Date(), 5.5, "agua", EstadoPrescripcion.ACTIVO, medico1, paciente1, recetas);
 		prescripcion1 = prescripcionDAO.save(prescripcion1);
 
-		Receta receta1 =  new Receta(EstadoReceta.PLANIFACADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
+		Receta receta1 =  new Receta(EstadoReceta.PLANIFICADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
 		receta1 = recetaDAO.save(receta1);
 
 		Medicamento medicamento1 = new Medicamento("pepe", "cocaina", "familia1", 1, "España SL", EstadoMedicamento.ACTIVO, prescripcion1);
@@ -152,7 +152,7 @@ public class RecetasApplication implements CommandLineRunner {
 		System.out.println("-----------");
 
 		//List<Medicamento> medicamentos = medicamentoDAO.findByNombreComercial("pepe");
-		//List<Medicamento> medicamentos = medicamentoDAO.findByPrincipioActivo("cocaina");
+		//List<Medicamento> medicamentos = medicamentoDAO.findByPrincipioActivo("aminiacido");
 		List<Medicamento> medicamentos = medicamentoDAO.findByFabricante("España SL");
 		System.out.println("[+]Todos los medicamentos con ese nombre:");
 		for (Medicamento m : medicamentos) {

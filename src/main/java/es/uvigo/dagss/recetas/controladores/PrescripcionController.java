@@ -88,7 +88,7 @@ public class PrescripcionController {
             if (prescripcion.isPresent()) {
                 Prescripcion nuevaPrescripcion = prescripcion.get();
 
-                nuevaPrescripcion.setEstado(EstadoPrescripcion.ACTIVO);
+                nuevaPrescripcion.setEstado(EstadoPrescripcion.INACTIVO);
 
                 //Fijar administrador inactivo
                 prescripcionService.modificar(nuevaPrescripcion);
@@ -118,8 +118,6 @@ public class PrescripcionController {
             nuevaPrescripcion.setIndicaciones(prescripcion.getIndicaciones());
             nuevaPrescripcion.setEstado(prescripcion.getEstado());
             nuevaPrescripcion.setMedico(prescripcion.getMedico());
-            nuevaPrescripcion.setPaciente(prescripcion.getPaciente());
-            nuevaPrescripcion.setRecetas(prescripcion.getRecetas());
 
             prescripcionService.modificar(nuevaPrescripcion);
 
