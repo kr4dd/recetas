@@ -137,4 +137,5 @@ public class Prescripcion implements Serializable {
                 ", recetas=" + recetas +
                 '}';
     }
+
 }

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RecetasApplication<recetas>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.uvigo.dagss.recetas.RecetasApplication",
+            "projectName": "recetas",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

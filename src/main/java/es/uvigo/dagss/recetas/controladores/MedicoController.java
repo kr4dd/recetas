@@ -1,6 +1,5 @@
 package es.uvigo.dagss.recetas.controladores;
 
-
 import es.uvigo.dagss.recetas.entidades.EstadoMedico;
 import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.servicios.MedicoService;

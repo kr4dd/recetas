@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,15 @@ public class RecetasApplication implements CommandLineRunner {
 
 	@Autowired
 	MedicoDAO medicoDAO;
+
+	@Autowired
+	MedicamentoDAO medicamentoDAO;
+
+	@Autowired
+	RecetaDAO recetaDAO;
+
+	@Autowired
+	PrescripcionDAO prescripcionDAO;
 
 	@Autowired
 	PacienteDAO pacienteDAO;
@@ -69,7 +79,8 @@ public class RecetasApplication implements CommandLineRunner {
 				null);
 
 		paciente1 = pacienteDAO.save(paciente1);
-
+		
+		
 		Direccion d3 = new Direccion("333", "Ourense", "44444", "Ourense");
 		Farmacia farmacia1 = new Farmacia(TipoUsuario.FARMACIA, "farma", "farma1", "87574657P", "2983923", "farma@gmail.es",
 				"98874635", "gregory", "Marcialo",
@@ -82,6 +93,19 @@ public class RecetasApplication implements CommandLineRunner {
 		Cita cita1 = new Cita(EstadoCita.PLANIFICADA, 20, fechaYhora, medico1, paciente1);
 
 		cita1 = citaDAO.save(cita1);
+
+		//MIRI --------------------------
+		List<Receta> recetas = new ArrayList<>();
+		Prescripcion prescripcion1 =  new Prescripcion(new Date(), new Date(), 5.5, "agua", EstadoPrescripcion.ACTIVO, medico1, paciente1, recetas);
+		prescripcion1 = prescripcionDAO.save(prescripcion1);
+
+		Receta receta1 =  new Receta(EstadoReceta.PLANIFACADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
+		receta1 = recetaDAO.save(receta1);
+
+		Medicamento medicamento1 = new Medicamento("pepe", "cocaina", "familia1", 1, "España SL", EstadoMedicamento.ACTIVO, prescripcion1);
+		medicamento1 = medicamentoDAO.save(medicamento1);
+
+		//-------------------------------------------------------------
 	}
 
 	private void consultarEntidades() {
@@ -127,7 +151,31 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
+		//List<Medicamento> medicamentos = medicamentoDAO.findByNombreComercial("pepe");
+		//List<Medicamento> medicamentos = medicamentoDAO.findByPrincipioActivo("cocaina");
+		List<Medicamento> medicamentos = medicamentoDAO.findByFabricante("España SL");
+		System.out.println("[+]Todos los medicamentos con ese nombre:");
+		for (Medicamento m : medicamentos) {
+			System.out.println("\t" + m.getNombreComercial());
+		}
+		System.out.println("-----------");
 
+		// ----------------------------------------------------------------------------------------
+		List<Receta> recetas = recetaDAO.findByPrescripcionId(1L);
+		System.out.println("[+]Todos las recetas:");
+		for (Receta r : recetas) {
+			System.out.println("\t" + r.getNumReceta());
+		}
+		System.out.println("-----------");
+
+		List<Prescripcion> prescripciones = prescripcionDAO.findByFechaInicioPrescripcionBetween(new Date(), new Date());
+		System.out.println("[+]Todos las prescripcion:");
+		for (Prescripcion p : prescripciones) {
+			System.out.println("\t" + p.getId());
+		}
+		System.out.println("-----------");
+
+		
 		//Pero con exception de LAZY, para evitarlo se debe establecer un servicio
 		// indicando transactional, ya que citas recibe multiples accesos
 //		List<Cita> citas = citaDAO.findByMedicoDni("77758585L");
