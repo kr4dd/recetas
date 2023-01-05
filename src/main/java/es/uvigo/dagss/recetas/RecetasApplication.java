@@ -71,12 +71,20 @@ public class RecetasApplication implements CommandLineRunner {
 		paciente1 = pacienteDAO.save(paciente1);
 
 		Direccion d3 = new Direccion("333", "Ourense", "44444", "Ourense");
+
+		Direccion d4 = new Direccion("444", "Vigo", "55555", "Pontevedra");
+
 		Farmacia farmacia1 = new Farmacia(TipoUsuario.FARMACIA, "farma", "farma1", "87574657P", "2983923", "farma@gmail.es",
 				"98874635", "gregory", "Marcialo",
 				"farmaGuarda", EstadoFarmaceutico.ACTIVO, d3);
 
-		farmacia1 = farmaciaDAO.save(farmacia1);
+		Farmacia farmacia2 = new Farmacia(TipoUsuario.FARMACIA, "farmacia", "farmacia2", "17244246F", "8735628", "farmacia2@gmail.es",
+				"986117820", "Moncho", "Fernandez de la cruz santiago de santa maria",
+				"FarmaciaLuces", EstadoFarmaceutico.ACTIVO, d4);
 
+
+		farmacia1 = farmaciaDAO.save(farmacia1);
+		farmacia2 = farmaciaDAO.save(farmacia2);
 
 		FechaYhora fechaYhora = new FechaYhora();
 		Cita cita1 = new Cita(EstadoCita.PLANIFICADA, 20, fechaYhora, medico1, paciente1);
