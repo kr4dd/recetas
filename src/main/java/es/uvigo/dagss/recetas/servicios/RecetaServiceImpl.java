@@ -48,7 +48,7 @@ public class RecetaServiceImpl implements RecetaService{
     @Override
     @Transactional
     public List<Receta> buscarPorNumTarjetaSanit(String numero) {
-        return dao.findByNumTarjetaSanit(numero);
+        return dao.findByNumTarjetaSanitaria(numero);
     }
 
     @Override

@@ -51,7 +51,7 @@ public class PrescripcionServiceImpl  implements PrescripcionService{
     @Transactional(readOnly = true)
     public List<Prescripcion> BuscarPorFechaInicioFinalPrescripcion(Date fechaInicioPrescripcion,
             Date fechaFinPrescripcion) {
-        return dao.findByFechaInicioPrescripcionBetween(fechaInicioPrescripcion, fechaFinPrescripcion);
+        return dao.findByStartDateBetween(fechaInicioPrescripcion, fechaFinPrescripcion);
     }
     
 }
