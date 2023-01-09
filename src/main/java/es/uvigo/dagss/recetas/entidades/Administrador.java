@@ -17,29 +17,36 @@ public class Administrador extends Usuario implements Serializable {
     private String nombre;
 
     public Administrador() {
-        super(TipoUsuario.ADMINISTRADOR);
+        //super(TipoUsuario.ADMINISTRADOR);
     }
 
-    public Administrador(String email, EstadoAdministrador estado, String nombre) {
+//    public Administrador(String email, EstadoAdministrador estado, String nombre) {
+//        this.email = email;
+//        this.estado = estado;
+//        this.nombre = nombre;
+//    }
+
+    public Administrador(String login, String password, String email, EstadoAdministrador estado, String nombre) {
+        super(login, password);
         this.email = email;
         this.estado = estado;
         this.nombre = nombre;
     }
 
-    public Administrador(TipoUsuario tipo, String email, EstadoAdministrador estado, String nombre) {
-        super(tipo);
-        this.email = email;
-        this.estado = estado;
-        this.nombre = nombre;
-    }
-
-    public Administrador(TipoUsuario tipo, String login, String password, String email,
-                         EstadoAdministrador estado, String nombre) {
-        super(tipo, login, password);
-        this.email = email;
-        this.estado = estado;
-        this.nombre = nombre;
-    }
+//    public Administrador(TipoUsuario tipo, String email, EstadoAdministrador estado, String nombre) {
+//        super(tipo);
+//        this.email = email;
+//        this.estado = estado;
+//        this.nombre = nombre;
+//    }
+//
+//    public Administrador(TipoUsuario tipo, String login, String password, String email,
+//                         EstadoAdministrador estado, String nombre) {
+//        super(tipo, login, password);
+//        this.email = email;
+//        this.estado = estado;
+//        this.nombre = nombre;
+//    }
 
     public String getEmail() {
         return email;

@@ -1,30 +1,15 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.*;
+import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
 @DiscriminatorColumn(name = "TIPO_USUARIO",
 		discriminatorType = DiscriminatorType.STRING,
 		length = 20)
-public abstract class Usuario implements Serializable {
+public class Usuario implements Serializable {
 
 	@Id
 	@TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
@@ -32,9 +17,11 @@ public abstract class Usuario implements Serializable {
 	private Long id;
 
 
+	@ElementCollection
+	@CollectionTable(name = "TIPO_USUARIO")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TIPO_USUARIO", length = 20)
-	protected TipoUsuario tipo;
+	private Set<TipoUsuario> roles = new HashSet<>();
 
 	private String login;
 	private String password;
@@ -53,14 +40,8 @@ public abstract class Usuario implements Serializable {
 		this.activo = true;
 	}
 
-	public Usuario(TipoUsuario tipo) {
-		this();
-		this.tipo = tipo;
-	}
-
-	public Usuario(TipoUsuario tipo, String login, String password) {
-		this();
-		this.tipo = tipo;
+	public Usuario(String login, String password) {
+		super();
 		this.login = login;
 		this.password = password;
 	}
@@ -89,13 +70,20 @@ public abstract class Usuario implements Serializable {
 		this.ultimoAcceso = ultimoAcceso;
 	}
 
-
-	public TipoUsuario getTipo() {
-		return tipo;
+	public Set<TipoUsuario> getRoles() {
+		return roles;
 	}
 
-	public void setTipo(TipoUsuario tipo) {
-		this.tipo = tipo;
+	public void setRoles(Set<TipoUsuario> roles) {
+		this.roles = roles;
+	}
+
+	public void anadirRol(TipoUsuario rol) {
+		this.roles.add(rol);
+	}
+
+	public void eliminarRol(TipoUsuario rol) {
+		this.roles.remove(rol);
 	}
 
 	public String getLogin() {

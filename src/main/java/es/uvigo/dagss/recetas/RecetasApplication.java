@@ -7,11 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={
+		"es.uvigo.dagss.recetas.seguridad.autenticacion.UserDetailsServiceImpl"})
 public class RecetasApplication implements CommandLineRunner {
 	@Autowired
 	AdministradorDAO administradorDAO;
@@ -40,20 +39,42 @@ public class RecetasApplication implements CommandLineRunner {
 	@Autowired
 	CitaDAO citaDAO;
 
+	//Autenticacion
+	@Autowired
+	UsuarioDAO dao;
+
+	//@Autowired
+	//PasswordEncoder passwordEncoder;
+
 	public static void main(String[] args) {
 		SpringApplication.run(RecetasApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) {
+		// Creacion de usuarios de ejemplo para autenticarse empleando roles
+		if (!dao.existsByLogin("ana")) {
+			Usuario ana = new Usuario("ana", "ana");
+			ana.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.MEDICO)));
+			dao.save(ana);
+		}
+
+		if (!dao.existsByLogin("admin")) {
+			Usuario admin = new Usuario("admin", "ana");
+			admin.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.ADMINISTRADOR)));
+			dao.save(admin);
+		}
+
+		//Rellenar y consultar el resto de entidades
 		crearEntidades();
 		consultarEntidades();
 	}
 
 	private void crearEntidades() {
-		Administrador administrador1 = new Administrador(TipoUsuario.ADMINISTRADOR, "pepe", "pepe123",
+		Administrador administrador1 = new Administrador("pepe", "pepe123",
 				"pepe@gmail.es", EstadoAdministrador.ACTIVO, "pepe");
 
+		administrador1.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.ADMINISTRADOR)));
 		administrador1 = administradorDAO.save(administrador1);
 
 
@@ -64,7 +85,7 @@ public class RecetasApplication implements CommandLineRunner {
 		centroDeSalud1 = centroDeSaludDAO.save(centroDeSalud1);
 
 
-		Medico medico1 = new Medico(TipoUsuario.MEDICO, "jose", "jose123", "77758585L", "jose"
+		Medico medico1 = new Medico("jose", "jose123", "77758585L", "jose"
 				, "fernan", "7aa1xl", "987878787", "josemedico@gmail.es",
 				EstadoMedico.ACTIVO, centroDeSalud1, null);
 
@@ -73,7 +94,7 @@ public class RecetasApplication implements CommandLineRunner {
 
 		Direccion d2 = new Direccion("222", "Ourense", "33333", "Ourense");
 		Date fecha1 = new Date();
-		Paciente paciente1 = new Paciente(TipoUsuario.PACIENTE, "maria", "maria123", "44565968K", "maria", "orlon",
+		Paciente paciente1 = new Paciente("maria", "maria123", "44565968K", "maria", "orlon",
 				"987978787", "75986374", "8569785", "maria@gmail.es", d2,
 				fecha1, EstadoPaciente.ACTIVO, centroDeSalud1, medico1,
 				null);
@@ -82,7 +103,7 @@ public class RecetasApplication implements CommandLineRunner {
 		
 		
 		Direccion d3 = new Direccion("333", "Ourense", "44444", "Ourense");
-		Farmacia farmacia1 = new Farmacia(TipoUsuario.FARMACIA, "farma", "farma1", "87574657P", "2983923", "farma@gmail.es",
+		Farmacia farmacia1 = new Farmacia("farma", "farma1", "87574657P", "2983923", "farma@gmail.es",
 				"98874635", "gregory", "Marcialo",
 				"farmaGuarda", EstadoFarmaceutico.ACTIVO, d3);
 

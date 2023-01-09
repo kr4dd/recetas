@@ -34,7 +34,7 @@ public class Farmacia extends Usuario implements Serializable {
     private Direccion direccion;
 
     public Farmacia() {
-        super(TipoUsuario.FARMACIA);
+        //super(TipoUsuario.FARMACIA);
     }
 
     public Farmacia(String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
@@ -49,8 +49,8 @@ public class Farmacia extends Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Farmacia(TipoUsuario tipo, String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
-        super(tipo);
+    public Farmacia(String login, String password, String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+        super(login, password);
         this.dni = dni;
         this.numColegiado = numColegiado;
         this.email = email;
@@ -62,20 +62,33 @@ public class Farmacia extends Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Farmacia(TipoUsuario tipo, String login, String password, String dni, String numColegiado, String email,
-                    String telefono, String nombreFarmaceutico, String apellidosFarmaceutico,
-                    String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
-        super(tipo, login, password);
-        this.dni = dni;
-        this.numColegiado = numColegiado;
-        this.email = email;
-        this.telefono = telefono;
-        this.nombreFarmaceutico = nombreFarmaceutico;
-        this.apellidosFarmaceutico = apellidosFarmaceutico;
-        this.nombreEstablecimiento = nombreEstablecimiento;
-        this.estado = estado;
-        this.direccion = direccion;
-    }
+//    public Farmacia(TipoUsuario tipo, String dni, String numColegiado, String email, String telefono, String nombreFarmaceutico, String apellidosFarmaceutico, String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+//        super(tipo);
+//        this.dni = dni;
+//        this.numColegiado = numColegiado;
+//        this.email = email;
+//        this.telefono = telefono;
+//        this.nombreFarmaceutico = nombreFarmaceutico;
+//        this.apellidosFarmaceutico = apellidosFarmaceutico;
+//        this.nombreEstablecimiento = nombreEstablecimiento;
+//        this.estado = estado;
+//        this.direccion = direccion;
+//    }
+//
+//    public Farmacia(TipoUsuario tipo, String login, String password, String dni, String numColegiado, String email,
+//                    String telefono, String nombreFarmaceutico, String apellidosFarmaceutico,
+//                    String nombreEstablecimiento, EstadoFarmaceutico estado, Direccion direccion) {
+//        super(tipo, login, password);
+//        this.dni = dni;
+//        this.numColegiado = numColegiado;
+//        this.email = email;
+//        this.telefono = telefono;
+//        this.nombreFarmaceutico = nombreFarmaceutico;
+//        this.apellidosFarmaceutico = apellidosFarmaceutico;
+//        this.nombreEstablecimiento = nombreEstablecimiento;
+//        this.estado = estado;
+//        this.direccion = direccion;
+//    }
 
     public String getDNI() {
         return dni;
