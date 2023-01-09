@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +24,7 @@ public class CentroDeSaludController {
     @Autowired
     CentroDeSaludService centroDeSaludService;
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping()
     public ResponseEntity<List<CentroDeSalud>> buscarTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
@@ -71,6 +73,7 @@ public class CentroDeSaludController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<CentroDeSalud> buscarPorId(@PathVariable("id") Long id) {
         Optional<CentroDeSalud> centroDeSalud = centroDeSaludService.buscarPorId(id);
@@ -82,6 +85,7 @@ public class CentroDeSaludController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CentroDeSalud> crear(@RequestBody CentroDeSalud centroDeSalud) {
         try {
@@ -96,6 +100,7 @@ public class CentroDeSaludController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -119,6 +124,7 @@ public class CentroDeSaludController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CentroDeSalud> modificar(@PathVariable("id") Long id, @RequestBody CentroDeSalud centroDeSalud) {
         Optional<CentroDeSalud> centroDeSaludOptional = centroDeSaludService.buscarPorId(id);

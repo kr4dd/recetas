@@ -43,9 +43,35 @@ public class WebSecurityConfig {
                 .cors().and() // habilita CORS
                 .csrf().disable() // deshabilita CSRF
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()    // Permite acceso total a /api/auth
-                .antMatchers("/api/pruebas/**").permitAll() // Permite acceso total a /api/pruebas (despues sera
-                //                        limitado con @PreAuthorize)
-                .anyRequest().authenticated();
+
+                // Permite acceso total a /api/administradores (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/administradores/**").permitAll()
+
+                // Permite acceso total a /api/pacientes (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/pacientes/**").permitAll()
+
+                // Permite acceso total a /api/medicos (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/medicos/**").permitAll()
+
+                // Permite acceso total a /api/farmacias (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/farmacias/**").permitAll()
+
+                // Permite acceso total a /api/centrosdesalud (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/centrosdesalud/**").permitAll()
+
+                // Permite acceso total a /api/citas (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/citas/**").permitAll()
+
+                // Permite acceso total a /api/medicamentos (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/medicamentos/**").permitAll()
+
+                // Permite acceso total a /api/recetas (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/recetas/**").permitAll()
+
+                // Permite acceso total a /api/prescripciones (despues sera limitado con @PreAuthorize)
+                .antMatchers("/api/prescripciones/**").permitAll();
+
+
 
         // Filtro JWT
         // Establece filtros por los que pasan las peticiones (y su orden)

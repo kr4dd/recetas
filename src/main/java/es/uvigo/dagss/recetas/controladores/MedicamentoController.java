@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,8 @@ public class MedicamentoController {
 
     @Autowired
     MedicamentoService medicamentosService;
-    
+
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping()
     public ResponseEntity<List<Medicamento>> buscarTodos(
             @RequestParam(name = "nombreComercial", required = false) String nombreComercial,
@@ -58,7 +60,9 @@ public class MedicamentoController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-}
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Medicamento> buscarPorId(@PathVariable("id") Long id) {
         Optional<Medicamento> medicamento = medicamentosService.buscarPorId(id);
@@ -70,6 +74,7 @@ public class MedicamentoController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Medicamento> crear(@RequestBody Medicamento medicamento) {
         try {
@@ -82,7 +87,9 @@ public class MedicamentoController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-}
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -103,6 +110,7 @@ public class MedicamentoController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Medicamento> modificar(@PathVariable("id") Long id, @RequestBody Medicamento medicamento) {
         Optional<Medicamento> medicamentoOptional = medicamentosService.buscarPorId(id);

@@ -2,18 +2,19 @@ package es.uvigo.dagss.recetas.controladores;
 
 import es.uvigo.dagss.recetas.entidades.EstadoMedico;
 import es.uvigo.dagss.recetas.entidades.Medico;
+import es.uvigo.dagss.recetas.entidades.TipoUsuario;
 import es.uvigo.dagss.recetas.servicios.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -23,6 +24,10 @@ public class MedicoController {
     @Autowired
     MedicoService medicoService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMINISTRADOR')")
     @GetMapping()
     public ResponseEntity<List<Medico>> buscarTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
@@ -59,6 +64,7 @@ public class MedicoController {
         }
     }
 
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMINISTRADOR')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Medico> buscarPorId(@PathVariable("id") Long id) {
         Optional<Medico> medico = medicoService.buscarPorId(id);
@@ -70,6 +76,7 @@ public class MedicoController {
         }
     }
 
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMINISTRADOR')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Medico> crear(@RequestBody Medico medico) {
         try {
@@ -78,6 +85,7 @@ public class MedicoController {
 
             //Establecer como contraseña por defecto al crearlo su numero de colegiado
             nuevoMedico.setPassword(medico.getNumColegiado());
+            nuevoMedico.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.MEDICO)));
             medicoService.modificar(nuevoMedico);
 
             URI uri = crearURIMedico(nuevoMedico);
@@ -89,6 +97,7 @@ public class MedicoController {
         }
     }
 
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMINISTRADOR')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -111,6 +120,7 @@ public class MedicoController {
         }
     }
 
+    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMINISTRADOR')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Medico> modificar(@PathVariable("id") Long id, @RequestBody Medico medico) {
         Optional<Medico> medicoOptional = medicoService.buscarPorId(id);

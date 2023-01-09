@@ -44,6 +44,8 @@ public class Usuario implements Serializable {
 		super();
 		this.login = login;
 		this.password = password;
+		this.fechaAlta = Calendar.getInstance().getTime();
+		this.ultimoAcceso = Calendar.getInstance().getTime();
 	}
 
 	public Long getId() {

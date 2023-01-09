@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(path = "api/auth")
+@RequestMapping(path = "/api/auth")
 @CrossOrigin(origins = "*")
 public class AutenticacionController {
     @Autowired
@@ -31,7 +31,7 @@ public class AutenticacionController {
     @Autowired
     UtilidadesJWT utilidadesJWT;
 
-    @PostMapping(path = "registro")
+    @PostMapping(path = "/registro")
     public ResponseEntity<?> registrarUsuario(@RequestBody @Valid DatosRegistro datosRegistro) {
         if (usuarioDAO.existsByLogin(datosRegistro.getLogin())) {
             return ResponseEntity.badRequest().body(new MensajeRespuesta("Error: El login ya existe"));
@@ -50,7 +50,7 @@ public class AutenticacionController {
     }
 
     // Autenticacion "manual", busca usuario con el login indicado y compara passwords recibido con el password hasheado almacenando
-    @PostMapping(path = "login")
+    @PostMapping(path = "/login")
     public ResponseEntity<?> login(@RequestBody @Valid DatosLogin datosLogin) {
         String login = datosLogin.getLogin();
         String password = datosLogin.getPassword();

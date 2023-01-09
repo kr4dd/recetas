@@ -39,7 +39,7 @@ public class UserDetailsImpl implements UserDetails {
 
         List<GrantedAuthority> authoritiesAcc = new ArrayList<>();
         for (TipoUsuario rol : usuario.getRoles()) {
-            authoritiesAcc.add(new SimpleGrantedAuthority(rol.name()));
+            authoritiesAcc.add(new SimpleGrantedAuthority("ROLE_" + rol.name()));
         }
         this.authorities = authoritiesAcc;
     }

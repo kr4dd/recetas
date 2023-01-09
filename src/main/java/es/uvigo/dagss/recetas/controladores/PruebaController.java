@@ -22,11 +22,11 @@ public class PruebaController {
 //        return "Accesible a todos los usuarios";
 //    }
 
-    @GetMapping("/administradores")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public String paraAdmin() {
-        return "Accesible solo a administradores";
-    }
+//    @GetMapping("/administradores")
+//    @PreAuthorize("hasRole('ADMINISTRADOR')")
+//    public String paraAdmin() {
+//        return "Accesible solo a administradores";
+//    }
 
     @GetMapping("/pacientes")
     @PreAuthorize("hasRole('PACIENTE') or hasRole('ADMINISTRADOR')")
@@ -34,11 +34,11 @@ public class PruebaController {
         return "Accesible solo a pacientes o administradores";
     }
 
-    @GetMapping("/medicos")
-    @PreAuthorize("hasRole('MEDICO') or hasRole('ADMINISTRADOR')")
-    public String paraMedico() {
-        return "Accesible solo a medicos o administradores";
-    }
+//    @GetMapping("/medicos")
+//    @PreAuthorize("hasRole('ROLE_MEDICO') or hasRole('ROLE_ADMINISTRADOR')")
+//    public String paraMedico() {
+//        return "Accesible solo a medicos o administradores";
+//    }
 
     @GetMapping("/farmacias")
     @PreAuthorize("hasRole('FARMACIA') or hasRole('ADMINISTRADOR')")
@@ -52,11 +52,11 @@ public class PruebaController {
      Accesos solo para rol administrador
     --------------------------------------------
      */
-    @GetMapping("/centrosdesalud")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public String paraCentroDeSalud() {
-        return "Accesible solo a administradores";
-    }
+//    @GetMapping("/centrosdesalud")
+//    @PreAuthorize("hasRole('ADMINISTRADOR')")
+//    public String paraCentroDeSalud() {
+//        return "Accesible solo a administradores";
+//    }
 
     @GetMapping("/citas")
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('PACIENTE')")
@@ -64,16 +64,22 @@ public class PruebaController {
         return "Accesible solo a administradores";
     }
 
-    @GetMapping("/medicamentos")
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public String paraMedicamentos() {
-        return "Accesible solo a administradores";
-    }
+//    @GetMapping("/medicamentos")
+//    @PreAuthorize("hasRole('ADMINISTRADOR')")
+//    public String paraMedicamentos() {
+//        return "Accesible solo a administradores";
+//    }
 
     @GetMapping("/recetas")
     @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
     public String paraRecetas() {
         return "Accesible solo a pacientes o farmacias";
     }
+
+//    @GetMapping("/prescripciones")
+//    @PreAuthorize("hasRole('MEDICO') or hasRole('PACIENTE')")
+//    public String paraPrescripciones() {
+//        return "Accesible solo a pacientes o farmacias";
+//    }
 
 }

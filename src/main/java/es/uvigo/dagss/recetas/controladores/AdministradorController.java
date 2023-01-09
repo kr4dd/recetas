@@ -2,18 +2,19 @@ package es.uvigo.dagss.recetas.controladores;
 
 import es.uvigo.dagss.recetas.entidades.Administrador;
 import es.uvigo.dagss.recetas.entidades.EstadoAdministrador;
+import es.uvigo.dagss.recetas.entidades.TipoUsuario;
 import es.uvigo.dagss.recetas.servicios.AdministradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/administradores", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,6 +23,10 @@ public class AdministradorController {
     @Autowired
     AdministradorService administradorService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping()
     public ResponseEntity<List<Administrador>> buscarTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
@@ -52,6 +57,7 @@ public class AdministradorController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Administrador> buscarPorId(@PathVariable("id") Long id) {
         Optional<Administrador> administrador = administradorService.buscarPorId(id);
@@ -63,11 +69,17 @@ public class AdministradorController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Administrador> crear(@RequestBody Administrador administrador) {
         try {
             //Creamos uno nuevo si no existe
             Administrador nuevoAdministrador = administradorService.crear(administrador);
+
+            nuevoAdministrador.setPassword(passwordEncoder.encode(administrador.getPassword()));
+            nuevoAdministrador.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.ADMINISTRADOR)));
+            administradorService.modificar(nuevoAdministrador);
+
             URI uri = crearURIAdministrador(nuevoAdministrador);
 
             return ResponseEntity.created(uri).body(nuevoAdministrador);
@@ -77,6 +89,7 @@ public class AdministradorController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -100,6 +113,7 @@ public class AdministradorController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Administrador> modificar(@PathVariable("id") Long id, @RequestBody Administrador administrador) {
         Optional<Administrador> administradorOptional = administradorService.buscarPorId(id);
@@ -109,7 +123,7 @@ public class AdministradorController {
             Administrador nuevoAdministrador = administradorOptional.get();
 
             nuevoAdministrador.setLogin(administrador.getLogin());
-            nuevoAdministrador.setPassword(administrador.getPassword());
+            nuevoAdministrador.setPassword(passwordEncoder.encode(administrador.getPassword()));
             nuevoAdministrador.setNombre(administrador.getNombre());
             nuevoAdministrador.setEmail(administrador.getEmail());
             nuevoAdministrador.setEstado(administrador.getEstado());
