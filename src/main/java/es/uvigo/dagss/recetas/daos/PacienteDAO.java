@@ -16,11 +16,13 @@ public interface PacienteDAO extends JpaRepository<Paciente, String> {
      */
     @Query("SELECT p FROM Paciente AS p WHERE p.nombre LIKE %:nombre%")
     List<Paciente> findByPatronNombre(@Param("nombre") String nombre);
-
+        //77758585L
+        //
     @Query("SELECT p FROM Paciente AS p " +
             "JOIN FETCH " +
             "p.centroDeSalud c WHERE c.direccion.localidad LIKE %:localidad%")    
     List<Paciente> findByDireccionLocalidad(@Param("localidad") String localidad);
+
     @Query("SELECT p FROM Paciente AS p " +
             "JOIN FETCH " +
             "p.centroDeSalud c WHERE c.direccion.provincia LIKE %:provincia%") 
@@ -29,19 +31,23 @@ public interface PacienteDAO extends JpaRepository<Paciente, String> {
     /*
      * También podrá filtrarse la lista de pacientes por centro de salud
      */
-
-    List<Paciente> findByCentroDeSaludId(Long id);
+    @Query("SELECT p FROM Paciente AS p WHERE p.centroDeSalud.id LIKE %:id%")
+    List<Paciente> findByCentroDeSalud(Long id);
 
     /*
      * médico asignado (seleccionando un médico de una lista desplegable con todos
      * los médicos disponibles en el centro de salud indicado).
      */
+    @Query("SELECT p FROM Paciente AS p WHERE p.medico.dni LIKE %:dni%")
     List<Paciente> findByMedico(String dni);
 
+    /*
+     * centros de salud de la provincia de residencia del paciente.
+     */
 
- /*    List<Paciente> findByDni(String dni);
 
-    List<Paciente> findByNumTarjetaSanitaria(String numTarjetaSanitaria);
+
+ /* List<Paciente> findByNumTarjetaSanitaria(String numTarjetaSanitaria);
 
     // NO LO ENCONTRE EN LAS HITORRIAS, PERO LO DEJAMOS TAMBIEN?????''
     List<Paciente> findByEmailContaining(String email);
@@ -51,20 +57,4 @@ public interface PacienteDAO extends JpaRepository<Paciente, String> {
     List<Paciente> findByApellidosContaining(String apellidos); */
 
 
-/*     @Query("SELECT p FROM Paciente AS p " +
-            "JOIN FETCH " +
-            "p.medico m WHERE m.dni == p.medico.dni")
-    List<Medico> findByMedicos(String dni);
-
-    @Query("SELECT p.medico FROM Paciente p WHERE p.dni = %:dni%")
-    List<Medico> findMedicoByPacienteDni(@Param("dni") String dni);
- */
-    /*
-     * centros de salud de la provincia de residencia del paciente.
-     */
-/*     @Query("SELECT p FROM Paciente AS p " +
-            "JOIN FETCH " +
-            "p.centroDeSalud c WHERE c.direccion.provincia LIKE %:provincia%")
-    List<CentroDeSalud> findByPatronDireccionProvincia(@Param("provincia") String provincia);
- */
 }

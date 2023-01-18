@@ -1,7 +1,8 @@
-    package es.uvigo.dagss.recetas.daos;
+package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
 import es.uvigo.dagss.recetas.entidades.FechaYhora;
+import es.uvigo.dagss.recetas.entidades.Medico;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,19 +13,23 @@ import java.util.List;
 
 public interface CitaDAO extends JpaRepository<Cita, Long> {
 
-    @Query("SELECT m FROM Medico AS m WHERE m.dni LIKE %:dni%")
-    List<Cita> findByMedico(@Param("dni") String dni);
+/*     List<Cita> findByMedico(@Param("dni") String dni);
 
-    @Query("SELECT p FROM Paciente AS p WHERE p.dni LIKE %:dni%")
     List<Cita> findByPaciente(@Param("dni") String dni);
-
+ */
     /*1
     La lista de citas se deberá limitar por fecha (indicando el día sobre el que se realizará la búsqueda) y podrá filtrarse por médico o
     paciente (seleccionándose ambos de una lista).
     */
-    //List<Cita> findByFechaYHoraAnd(FechaYhora fechaYHora, Medico m);
-    //Probar y si on repetir con los dos
-    List<Cita> findByFechaYHoraAndPacienteOrMedico(FechaYhora fechaYHora, Paciente p);
+    @Query("SELECT c FROM Cita AS c " +
+    "JOIN FETCH " +
+    "c.medico m WHERE c.fechaYHora.fecha = fechaYHora AND m = medico") 
+    List<Cita> findByFechaYHoraAndMedico(FechaYhora fechaYHora, Medico medico);
+
+    @Query("SELECT c FROM Cita AS c " +
+    "JOIN FETCH " +
+    "c.paciente p WHERE c.fechaYHora.fecha = fechaYHora AND p = paciente") 
+    List<Cita> findByFechaYHoraAndPaciente(FechaYhora fechaYHora, Paciente paciente);
 
     /*2
     lista ordenada por hora de inicio con las citas actualmente registradas, indicando su datos esenciales
@@ -32,8 +37,8 @@ public interface CitaDAO extends JpaRepository<Cita, Long> {
     */
     //Query personalizada que devuelva valores por (paciente, médico, centro de salud, fecha y hora, estado). by hora
 
-    List<Cita> findByFechaYHora(FechaYhora fechaYhora);
-
+/*     List<Cita> findByFechaYHora(FechaYhora fechaYhora);
+ */
     /*3
     citas registradas para el día de hoy, indicando su datos esenciales (nombre de paciente, fecha y hora, duración, estado).
     */

@@ -56,64 +56,82 @@ public class RecetasApplication implements CommandLineRunner {
 
 		administrador1 = administradorDAO.save(administrador1);
 
-
 		Direccion d1 = new Direccion("123", "Ourense", "32332", "Ourense");
+		Direccion d2 = new Direccion("222", "Ourense", "33333", "Ourense");
+		Direccion d3 = new Direccion("333", "Vigo", "34521", "Pontevedra");
+		Direccion d4 = new Direccion("444", "A Coruña", "23332", "Coruña");
+		/*
+		 * Direccion d5 = new Direccion("555", "Cangas", "55555", "Pontevedra");
+		 */
 		CentroDeSalud centroDeSalud1 = new CentroDeSalud("A valenza saude", "avalenzasaude@gmail.es",
 				EstadoCentroSalud.ACTIVO, "999999999", d1);
 
+		CentroDeSalud centroDeSalud2 = new CentroDeSalud("Alvaro Cunqueiro", "cunqueiroxeral@sergas.gal",
+				EstadoCentroSalud.ACTIVO, "986112233", d3);
+
 		centroDeSalud1 = centroDeSaludDAO.save(centroDeSalud1);
+		centroDeSalud2 = centroDeSaludDAO.save(centroDeSalud2);
 
-
-		Medico medico1 = new Medico(TipoUsuario.MEDICO, "jose", "jose123", "77758585L", "jose"
-				, "fernan", "7aa1xl", "987878787", "josemedico@gmail.es",
+		Medico medico1 = new Medico(TipoUsuario.MEDICO, "jose", "jose123", "77758585L", "jose", "fernan", "7aa1xl",
+				"987878787", "josemedico@gmail.es",
 				EstadoMedico.ACTIVO, centroDeSalud1, null);
 
+		Medico medico2 = new Medico(TipoUsuario.MEDICO, "laura", "laura123", "84738928M", "laura", "perez", "9vj5gs",
+				"982356678", "lauramedico@gmail.es",
+				EstadoMedico.ACTIVO, centroDeSalud2, null);
+
 		medico1 = medicoDAO.save(medico1);
+		medico2 = medicoDAO.save(medico2);
 
-
-		Direccion d2 = new Direccion("222", "Ourense", "33333", "Ourense");
 		Date fecha1 = new Date();
+		Date fecha2 = new Date();
+
 		Paciente paciente1 = new Paciente(TipoUsuario.PACIENTE, "maria", "maria123", "44565968K", "maria", "orlon",
 				"987978787", "75986374", "8569785", "maria@gmail.es", d2,
 				fecha1, EstadoPaciente.ACTIVO, centroDeSalud1, medico1,
 				null);
 
+		Paciente paciente2 = new Paciente(TipoUsuario.PACIENTE, "luis", "luis123", "34526784K", "luis", "fernandez",
+				"983432984", "48509245", "9834367", "luisito@hotmail.com", d3,
+				fecha2, EstadoPaciente.ACTIVO, centroDeSalud2, medico2,
+				null);
+
 		paciente1 = pacienteDAO.save(paciente1);
-		
-		
-		Direccion d3 = new Direccion("333", "Ourense", "44444", "Ourense");
+		paciente2 = pacienteDAO.save(paciente2);
 
-		Direccion d4 = new Direccion("444", "Vigo", "55555", "Pontevedra");
-
-		Farmacia farmacia1 = new Farmacia(TipoUsuario.FARMACIA, "farma", "farma1", "87574657P", "2983923", "farma@gmail.es",
+		Farmacia farmacia1 = new Farmacia(TipoUsuario.FARMACIA, "farma", "farma1", "87574657P", "2983923",
+				"farma@gmail.es",
 				"98874635", "gregory", "Marcialo",
 				"farmaGuarda", EstadoFarmaceutico.ACTIVO, d3);
 
-		Farmacia farmacia2 = new Farmacia(TipoUsuario.FARMACIA, "farmacia", "farmacia2", "17244246F", "8735628", "farmacia2@gmail.es",
+		Farmacia farmacia2 = new Farmacia(TipoUsuario.FARMACIA, "farmacia", "farmacia2", "17244246F", "8735628",
+				"farmacia2@gmail.es",
 				"986117820", "Moncho", "Fernandez de la cruz santiago de santa maria",
 				"FarmaciaLuces", EstadoFarmaceutico.ACTIVO, d4);
-
 
 		farmacia1 = farmaciaDAO.save(farmacia1);
 		farmacia2 = farmaciaDAO.save(farmacia2);
 
 		FechaYhora fechaYhora = new FechaYhora();
 		Cita cita1 = new Cita(EstadoCita.PLANIFICADA, 20, fechaYhora, medico1, paciente1);
+		Cita cita2 = new Cita(EstadoCita.PLANIFICADA, 35, fechaYhora, medico2, paciente2);
 
 		cita1 = citaDAO.save(cita1);
 
-		//MIRI --------------------------
+		// MIRI --------------------------
 		List<Receta> recetas = new ArrayList<>();
-		Prescripcion prescripcion1 =  new Prescripcion(new Date(), new Date(), 5.5, "agua", EstadoPrescripcion.ACTIVO, medico1, paciente1, recetas);
+		Prescripcion prescripcion1 = new Prescripcion(new Date(), new Date(), 5.5, "agua", EstadoPrescripcion.ACTIVO,
+				medico1, paciente1, recetas);
 		prescripcion1 = prescripcionDAO.save(prescripcion1);
 
-		Receta receta1 =  new Receta(EstadoReceta.PLANIFICADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
+		Receta receta1 = new Receta(EstadoReceta.PLANIFICADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
 		receta1 = recetaDAO.save(receta1);
 
-		Medicamento medicamento1 = new Medicamento("pepe", "cocaina", "familia1", 1, "España SL", EstadoMedicamento.ACTIVO, prescripcion1);
+		Medicamento medicamento1 = new Medicamento("pepe", "cocaina", "familia1", 1, "España SL",
+				EstadoMedicamento.ACTIVO, prescripcion1);
 		medicamento1 = medicamentoDAO.save(medicamento1);
 
-		//-------------------------------------------------------------
+		// -------------------------------------------------------------
 	}
 
 	private void consultarEntidades() {
@@ -124,7 +142,6 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
-
 		List<CentroDeSalud> centrosDeSalud = centroDeSaludDAO.findByDireccionProvincia("Ourense");
 		System.out.println("[+]Todos los centros de salud:");
 		for (CentroDeSalud c : centrosDeSalud) {
@@ -132,29 +149,27 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
-
-		//List<Medico> medicos = medicoDAO.findByPatronNombre("jo");
-		//List<Medico> medicos = medicoDAO.findByCentroDeSaludId(1L);
-		//List<Medico> medicos = medicoDAO.findByPatronDireccionLocalidad("Ou");
+		// List<Medico> medicos = medicoDAO.findByPatronNombre("jo");
+		// List<Medico> medicos = medicoDAO.findByCentroDeSaludId(1L);
+		// List<Medico> medicos = medicoDAO.findByPatronDireccionLocalidad("Ou");
 		List<Medico> medicos = medicoDAO.findByPatronDireccionProvincia("Ou");
 		System.out.println("[+]Todos los medicos:");
 		for (Medico m : medicos) {
 			System.out.println("\t" + m.getNombre());
 		}
 		System.out.println("-----------");
-
-		List<Paciente> pacientes = pacienteDAO.findByPatronNombre("maria");
-/* 		List<Paciente> pacientes = pacienteDAO.findByDireccionAndLocalidad(@Param("localidad") String localidad);
-		List<Paciente> pacientes = pacienteDAO.findByDireccionAndProvincia(@Param("provincia") String provincia);
-		List<Paciente> pacientes = pacienteDAO.findByCentroDeSaludId(Long id);
-		List<Paciente> pacientes = pacienteDAO.findByMedico(String dni); */
+		//List<Paciente> pacientes = pacienteDAO.findByPatronNombre("pepe");
+		//List<Paciente> pacientes = pacienteDAO.findByDireccionLocalidad("Ourense");
+		//List<Paciente> pacientes = pacienteDAO.findByDireccionProvincia("Pontevedra");
+		//List<Paciente> pacientes = pacienteDAO.findByCentroDeSaludId(2L);
+		List<Paciente> pacientes = pacienteDAO.findByMedico("77758585L"); 
+		 
 
 		System.out.println("[+]Todos los pacientes:");
 		for (Paciente p : pacientes) {
 			System.out.println("\t" + p.getNombre());
 		}
 		System.out.println("-----------");
-
 
 		List<Farmacia> farmacias = farmaciaDAO.findByDireccionProvincia("Ourense");
 		System.out.println("[+]Todos las farmacias:");
@@ -163,8 +178,10 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
-		//List<Medicamento> medicamentos = medicamentoDAO.findByNombreComercial("pepe");
-		//List<Medicamento> medicamentos = medicamentoDAO.findByPrincipioActivo("aminiacido");
+		// List<Medicamento> medicamentos =
+		// medicamentoDAO.findByNombreComercial("pepe");
+		// List<Medicamento> medicamentos =
+		// medicamentoDAO.findByPrincipioActivo("aminiacido");
 		List<Medicamento> medicamentos = medicamentoDAO.findByFabricante("España SL");
 		System.out.println("[+]Todos los medicamentos con ese nombre:");
 		for (Medicamento m : medicamentos) {
@@ -180,22 +197,22 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
-		List<Prescripcion> prescripciones = prescripcionDAO.findByFechaInicioPrescripcionBetween(new Date(), new Date());
+		List<Prescripcion> prescripciones = prescripcionDAO.findByFechaInicioPrescripcionBetween(new Date(),
+				new Date());
 		System.out.println("[+]Todos las prescripcion:");
 		for (Prescripcion p : prescripciones) {
 			System.out.println("\t" + p.getId());
 		}
 		System.out.println("-----------");
 
-		
-		//Pero con exception de LAZY, para evitarlo se debe establecer un servicio
+		// Pero con exception de LAZY, para evitarlo se debe establecer un servicio
 		// indicando transactional, ya que citas recibe multiples accesos
-//		List<Cita> citas = citaDAO.findByMedicoDni("77758585L");
-//		System.out.println("[+]Todos las citas:");
-//		for (Cita c : citas) {
-//			System.out.println("\t" + c.toString());
-//		}
-//		System.out.println("-----------");
+		// List<Cita> citas = citaDAO.findByMedicoDni("77758585L");
+		// System.out.println("[+]Todos las citas:");
+		// for (Cita c : citas) {
+		// System.out.println("\t" + c.toString());
+		// }
+		// System.out.println("-----------");
 
 	}
 

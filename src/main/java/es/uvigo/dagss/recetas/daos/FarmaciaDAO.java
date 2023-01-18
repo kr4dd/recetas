@@ -9,18 +9,14 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FarmaciaDAO extends JpaRepository<Farmacia, Long> {
-    List<Farmacia> findByNombreEstablecimientoContaining(String nombre);
+    @Query("SELECT f FROM Farmacia AS f WHERE f.nombreEstablecimiento LIKE %:nombre%")
+    List<Farmacia> findByNombreEstablecimientoContaining(@Param("nombre") String nombre);
     List<Farmacia> findByEmailContaining(String email);
     List<Farmacia> findByTelefonoContaining(String telefono);
     List<Farmacia> findByEstadoContaining(EstadoFarmaceutico estado);
 
     List<Farmacia> findByDireccionDomicilio(String domicilio);
+    List<Farmacia> findByDireccionProvincia(String provincia);
     List<Farmacia> findByDireccionCodigoPostal(String codigoPostal);
-
-
-    
-    @Query("SELECT f FROM farmacia AS f WHERE f.nombre LIKE %:nombre%")
-    List<Farmacia> findByPatronNombre(@Param("nombre") String nombre);
-
 
 }
