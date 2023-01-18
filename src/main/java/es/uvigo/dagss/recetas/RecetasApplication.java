@@ -119,8 +119,12 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
+		List<Paciente> pacientes = pacienteDAO.findByPatronNombre("maria");
+/* 		List<Paciente> pacientes = pacienteDAO.findByDireccionAndLocalidad(@Param("localidad") String localidad);
+		List<Paciente> pacientes = pacienteDAO.findByDireccionAndProvincia(@Param("provincia") String provincia);
+		List<Paciente> pacientes = pacienteDAO.findByCentroDeSaludId(Long id);
+		List<Paciente> pacientes = pacienteDAO.findByMedico(String dni); */
 
-		List<Paciente> pacientes = pacienteDAO.findByDni("maria");
 		System.out.println("[+]Todos los pacientes:");
 		for (Paciente p : pacientes) {
 			System.out.println("\t" + p.getNombre());
