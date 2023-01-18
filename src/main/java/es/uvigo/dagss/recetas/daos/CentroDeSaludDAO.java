@@ -12,7 +12,7 @@ import java.util.List;
 public interface CentroDeSaludDAO extends JpaRepository<CentroDeSalud, Long> {
     List<CentroDeSalud> findByEmailContaining(String email);
     List<CentroDeSalud> findByTelefonoContaining(String telefono);
-    List<CentroDeSalud> findByEstado(String estado);
+    List<CentroDeSalud> findByEstado(EstadoCentroSalud estado);
 
     List<CentroDeSalud> findByDireccionDomicilio(String domicilio);
     List<CentroDeSalud> findByDireccionCodigoPostal(String codigoPostal);

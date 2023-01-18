@@ -34,8 +34,8 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Medico> buscarPorDNI(String dni) {
-        return dao.findById(dni);
+    public Optional<Medico> buscarPorId(Long id) {
+        return dao.findById(id);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,10 +32,12 @@ public class Prescripcion implements Serializable {
     private Medico medico;
 
     @ManyToOne
+    @JsonIgnore
     private Paciente paciente;
 
     @OneToMany(mappedBy = "prescripcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderBy("numReceta asc")
+    @JsonIgnore
     private List<Receta> recetas = new ArrayList<>();
 
     public Prescripcion() {
@@ -137,4 +141,5 @@ public class Prescripcion implements Serializable {
                 ", recetas=" + recetas +
                 '}';
     }
+
 }
