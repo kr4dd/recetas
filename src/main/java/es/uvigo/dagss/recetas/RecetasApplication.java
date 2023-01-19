@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @SpringBootApplication
 public class RecetasApplication implements CommandLineRunner {
 	@Autowired
@@ -28,6 +29,7 @@ public class RecetasApplication implements CommandLineRunner {
 	MedicoDAO medicoDAO;
 
 	@Autowired
+	@JsonIgnore
 	MedicamentoDAO medicamentoDAO;
 
 	@Autowired
@@ -233,23 +235,13 @@ public class RecetasApplication implements CommandLineRunner {
 		} catch (Exception e) {
 			
 		}
-		List<Receta> recetas2 = recetaDAO.findByNumTarjetaSanitaria("8569785");
+		List<Receta> recetas2 = recetaDAO.findByNumTarjetaSanitaria("75986374");
 		System.out.println("[+]Todos las recetas con ese numero de trajeta sanitaria:");
 		for (Receta r : recetas2) {
 			System.out.println("\t" + r.getNumReceta());
 		}
 		System.out.println("-----------");
 		
-
-		
-		//Pero con exception de LAZY, para evitarlo se debe establecer un servicio
-		// indicando transactional, ya que citas recibe multiples accesos
-//		List<Cita> citas = citaDAO.findByMedicoDni("77758585L");
-//		System.out.println("[+]Todos las citas:");
-//		for (Cita c : citas) {
-//			System.out.println("\t" + c.toString());
-//		}
-//		System.out.println("-----------");
 
 	}
 
