@@ -1,67 +1,52 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.*;
+import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)  // Una tabla propia para cada subclase
 @DiscriminatorColumn(name = "TIPO_USUARIO",
-        discriminatorType = DiscriminatorType.STRING,
-        length = 20)
-public abstract class Usuario implements Serializable {
+		discriminatorType = DiscriminatorType.STRING,
+		length = 20)
+public class Usuario implements Serializable {
 
-    @Id
-    @TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)           
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
-    private Long id;
-
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_USUARIO", length = 20)
-    protected TipoUsuario tipo;
-
-    private String login;
-    private String password;
+	@Id
+	@TableGenerator(name = "USUARIO_GEN", table = "USUARIO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "USUARIO_GEN")
+	private Long id;
 
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaAlta;
+	@ElementCollection
+	@CollectionTable(name = "TIPO_USUARIO")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_USUARIO", length = 20)
+	private Set<TipoUsuario> roles = new HashSet<>();
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ultimoAcceso;
+	private String login;
+	private String password;
 
-    public Usuario() {
-        this.fechaAlta = Calendar.getInstance().getTime();
-        this.ultimoAcceso = Calendar.getInstance().getTime();
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaAlta;
 
-    public Usuario(TipoUsuario tipo) {
-    	this();
-        this.tipo = tipo;
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date ultimoAcceso;
 
-    public Usuario(TipoUsuario tipo, String login, String password) {
-    	this();
-        this.tipo = tipo;
-        this.login = login;
-        this.password = password;
-    }
+	private Boolean activo = true;
+
+	public Usuario() {
+		this.fechaAlta = Calendar.getInstance().getTime();
+		this.ultimoAcceso = Calendar.getInstance().getTime();
+		this.activo = true;
+	}
+
+	public Usuario(String login, String password) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.fechaAlta = Calendar.getInstance().getTime();
+		this.ultimoAcceso = Calendar.getInstance().getTime();
+	}
 
 	public Long getId() {
 		return id;
@@ -87,13 +72,20 @@ public abstract class Usuario implements Serializable {
 		this.ultimoAcceso = ultimoAcceso;
 	}
 
-
-	public TipoUsuario getTipo() {
-		return tipo;
+	public Set<TipoUsuario> getRoles() {
+		return roles;
 	}
 
-	public void setTipo(TipoUsuario tipo) {
-		this.tipo = tipo;
+	public void setRoles(Set<TipoUsuario> roles) {
+		this.roles = roles;
+	}
+
+	public void anadirRol(TipoUsuario rol) {
+		this.roles.add(rol);
+	}
+
+	public void eliminarRol(TipoUsuario rol) {
+		this.roles.remove(rol);
 	}
 
 	public String getLogin() {
@@ -110,6 +102,22 @@ public abstract class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
+	public void activar() {
+		this.activo = true;
+	}
+
+	public void desactivar() {
+		this.activo = false;
 	}
 
 	@Override
@@ -134,7 +142,4 @@ public abstract class Usuario implements Serializable {
 				&& Objects.equals(login, other.login);
 	}
 
-
-    
- 
 }

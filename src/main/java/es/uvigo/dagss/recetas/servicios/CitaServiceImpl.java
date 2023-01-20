@@ -1,0 +1,76 @@
+package es.uvigo.dagss.recetas.servicios;
+
+import java.util.List;
+import java.util.Optional;
+
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import es.uvigo.dagss.recetas.daos.CitaDAO;
+import es.uvigo.dagss.recetas.entidades.Cita;
+@Service
+public class CitaServiceImpl implements CitaService{
+
+    @Autowired
+    CitaDAO dao;
+
+    @Override
+    public Cita crear(Cita cita) {
+        return dao.save(cita);
+    }
+
+    @Override
+    public Cita modificar(Cita cita) {
+        return dao.save(cita);
+    }
+
+    @Override
+    public void eliminar(Cita cita) {
+        dao.delete(cita);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Cita> buscarPorId(Long id) {
+        return dao.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cita> buscarTodos() {
+        return dao.findAll();
+    }
+
+    @Override
+    public List<Cita> buscarMedico(String dni) {
+        return dao.findByMedicoDni(dni);
+    }
+
+    @Override
+    public List<Cita> buscarPaciente(String dni) {
+        return dao.findByPacienteDni(dni);
+    }
+
+    @Override
+    public List<Cita> buscarFecha(String fecha) {
+        return dao.findByFechaYHoraFecha(fecha);
+    }
+
+    @Override
+    public List<Cita> buscarDuracion(String duracion) {
+        return dao.findByDuracion(Integer.parseInt(duracion));
+    }
+
+    @Override
+    public List<Cita> buscarEstado(String estado) {
+        return dao.findByEstado(EstadoCita.valueOf(estado));
+    }
+
+    @Override
+    public List<Cita> buscarHora(String hora) {
+        return dao.findByFechaYHoraHora(hora);
+    }
+    
+}
