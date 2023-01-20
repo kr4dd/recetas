@@ -1,4 +1,5 @@
 package es.uvigo.dagss.recetas.entidades;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,6 +48,7 @@ public class Paciente extends Usuario implements Serializable {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderBy("numCita asc")
+    @JsonIgnore
     private List<Cita> citas = new ArrayList<>();
 
     public Paciente() {
