@@ -8,7 +8,7 @@
 
 ### Crear BD para los ejemplos  (si no se ha hecho antes)
 
-* Crear BD "pruebas_si" en MySQL 
+* Crear BD "recetas" en MySQL 
 
 ```
 mysql -u root -p    [pedirá la contraseña de MySQL]
