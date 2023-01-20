@@ -11,11 +11,11 @@
 * Crear BD "recetas" en MySQL 
 
 ```
-mysql -u root -p    [pedirá la contraseña de MySQL]
+mysql -u dagss -p    [pedirá la contraseña de MySQL]
 
 mysql> create database recetas;
-mysql> create user recetas@localhost identified by "recetas";
-mysql> grant all privileges on recetas.* to recetas@localhost;
+mysql> create user dagss@localhost identified by "dagss";
+mysql> grant all privileges on recetas.* to dagss@localhost;
 
 ```
 
@@ -66,5 +66,12 @@ spring.datasource.password=recetas
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.show_sql=true
+
+```
+
+# Ejecutar proyecto
+
+```
+mvn spring-boot:run
 
 ```

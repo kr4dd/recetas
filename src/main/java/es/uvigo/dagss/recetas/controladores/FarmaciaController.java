@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,6 +26,7 @@ public class FarmaciaController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasRole('FARMACIA') or hasRole('ADMINISTRADOR')")
     @GetMapping()
     public ResponseEntity<List<Farmacia>> buscarTodos(
             @RequestParam(name = "nombreEstablecimiento", required = false) String nombreEstablecimiento,
@@ -59,6 +61,7 @@ public class FarmaciaController {
         }
     }
 
+    @PreAuthorize("hasRole('FARMACIA') or hasRole('ADMINISTRADOR')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Farmacia> buscarPorId(@PathVariable("id") Long id) {
         Optional<Farmacia> farmacia = farmaciaService.buscarPorId(id);
@@ -70,13 +73,14 @@ public class FarmaciaController {
         }
     }
 
+    @PreAuthorize("hasRole('FARMACIA') or hasRole('ADMINISTRADOR')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Farmacia> crear(@RequestBody Farmacia farmacia) {
         try {
             // Creamos una nueva si no existe
             Farmacia nuevoFarmacia = farmaciaService.crear(farmacia);
             nuevoFarmacia.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.FARMACIA)));
-            nuevoFarmacia.setPassword(farmacia.getNumColegiado());
+            nuevoFarmacia.setPassword(passwordEncoder.encode(farmacia.getNumColegiado()));
             URI uri = crearURIFarmacia(nuevoFarmacia);
             farmaciaService.modificar(nuevoFarmacia);
 
@@ -87,6 +91,7 @@ public class FarmaciaController {
         }
     }
 
+    @PreAuthorize("hasRole('FARMACIA') or hasRole('ADMINISTRADOR')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -109,6 +114,7 @@ public class FarmaciaController {
         }
     }
 
+    @PreAuthorize("hasRole('FARMACIA') or hasRole('ADMINISTRADOR')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Farmacia> modificar(@PathVariable("id") Long id, @RequestBody Farmacia farmacia) {
         Optional<Farmacia> farmaciaOptional = farmaciaService.buscarPorId(id);

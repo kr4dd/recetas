@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long numCita;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private EstadoCita estado;
@@ -37,12 +37,12 @@ public class Cita implements Serializable {
         this.paciente = paciente;
     }
 
-    public Long getNumCita() {
-        return numCita;
+    public Long getId() {
+        return id;
     }
 
-    public void setNumCita(Long numCita) {
-        this.numCita = numCita;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public EstadoCita getEstado() {
@@ -88,7 +88,7 @@ public class Cita implements Serializable {
     @Override
     public String toString() {
         return "Cita{" +
-                "numCita=" + numCita +
+                "id=" + id +
                 ", estado=" + estado +
                 ", duracion=" + duracion +
                 ", fechaYHora=" + fechaYHora +

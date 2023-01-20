@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +27,7 @@ public class PacienteController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('ADMINISTRADOR')")
     @GetMapping()
     public ResponseEntity<List<Paciente>> buscarTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
@@ -67,6 +69,7 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('ADMINISTRADOR')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Paciente> buscarPorDNI(@PathVariable("id") Long id) {
         Optional<Paciente> paciente = pacienteService.buscarPorId(id);
@@ -77,6 +80,7 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('ADMINISTRADOR')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Paciente> crear(@RequestBody Paciente paciente) {
         try {
@@ -85,7 +89,7 @@ public class PacienteController {
 
             nuevoPaciente.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
             // Establecer como contraseña por defecto al crearlo su numero de colegiado
-            nuevoPaciente.setPassword(paciente.getDNI());
+            nuevoPaciente.setPassword(passwordEncoder.encode(paciente.getDNI()));
             pacienteService.modificar(nuevoPaciente);
 
             URI uri = crearURIPaciente(nuevoPaciente);
@@ -97,6 +101,7 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('ADMINISTRADOR')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -119,6 +124,7 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('ADMINISTRADOR')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Paciente> modificar(@PathVariable("id") Long id, @RequestBody Paciente paciente) {
         Optional<Paciente> pacienteOptional = pacienteService.buscarPorId(id);

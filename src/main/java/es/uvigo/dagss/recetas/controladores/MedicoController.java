@@ -84,7 +84,7 @@ public class MedicoController {
             Medico nuevoMedico = medicoService.crear(medico);
 
             //Establecer como contraseña por defecto al crearlo su numero de colegiado
-            nuevoMedico.setPassword(medico.getNumColegiado());
+            nuevoMedico.setPassword(passwordEncoder.encode(medico.getNumColegiado()));
             nuevoMedico.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.MEDICO)));
             medicoService.modificar(nuevoMedico);
 

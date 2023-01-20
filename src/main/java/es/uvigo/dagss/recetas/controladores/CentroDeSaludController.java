@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping(path = "/api/centrodesalud", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CentroDeSaludController {

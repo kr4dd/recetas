@@ -1,29 +1,20 @@
 package es.uvigo.dagss.recetas.controladores;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
+import es.uvigo.dagss.recetas.entidades.Cita;
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
+import es.uvigo.dagss.recetas.servicios.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import es.uvigo.dagss.recetas.entidades.Cita;
-import es.uvigo.dagss.recetas.entidades.EstadoCita;
-import es.uvigo.dagss.recetas.servicios.CitaService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/citas", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,6 +23,7 @@ public class CitaController {
     @Autowired
     CitaService citaService;
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('PACIENTE')")
     @GetMapping()
     public ResponseEntity<List<Cita>> buscarTodos(
             @RequestParam(name = "paciente", required = false) String paciente,
@@ -82,6 +74,7 @@ public class CitaController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('PACIENTE')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Cita> buscarPorId(@PathVariable("id") Long id) {
         Optional<Cita> cita = citaService.buscarPorId(id);
@@ -93,10 +86,13 @@ public class CitaController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('PACIENTE')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cita> crear(@RequestBody Cita cita) {
         try {
             Cita nuevaCita = citaService.crear(cita);
+
+            System.out.println(cita);
 
             if (cita.getDuracion() == null) {
                 nuevaCita.setDuracion(15);
@@ -112,6 +108,7 @@ public class CitaController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('PACIENTE')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long id) {
         try {
@@ -135,6 +132,7 @@ public class CitaController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('PACIENTE')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cita> modificar(@PathVariable("id") Long id, @RequestBody Cita cita) {
         Optional<Cita> citaOptional = citaService.buscarPorId(id);
@@ -165,6 +163,6 @@ public class CitaController {
     }
 
     private URI crearURICita(Cita cita) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cita.getNumCita()).toUri();
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cita.getId()).toUri();
     }
 }
