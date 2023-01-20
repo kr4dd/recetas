@@ -27,8 +27,8 @@ public class PrescripcionController {
     @PreAuthorize("hasRole('MEDICO') or hasRole('PACIENTE')")
     @GetMapping()
     public ResponseEntity<List<Prescripcion>> buscarTodos(
-            @RequestParam(name = "fechaInicioPrescripcion", required = false) Date fechaInicioPrescripcion,
-            @RequestParam(name = "fechaFinPrescripcion", required = false) Date fechaFinPrescripcion)
+            @RequestParam(name = "fechaInicioPrescripcion", required = false) String fechaInicioPrescripcion,
+            @RequestParam(name = "fechaFinPrescripcion", required = false) String fechaFinPrescripcion)
     {
         try {
 
@@ -39,6 +39,9 @@ public class PrescripcionController {
             }else {
                 resultado = prescripcionService.buscarTodos();
             }
+
+            System.out.println(fechaInicioPrescripcion);
+            System.out.println(fechaFinPrescripcion);
 
             if (resultado.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

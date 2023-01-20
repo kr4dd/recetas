@@ -1,5 +1,7 @@
 package es.uvigo.dagss.recetas.servicios;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -49,9 +51,14 @@ public class PrescripcionServiceImpl  implements PrescripcionService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<Prescripcion> BuscarPorFechaInicioFinalPrescripcion(Date fechaInicioPrescripcion,
-            Date fechaFinPrescripcion) {
-        return dao.findByStartDateBetween(fechaInicioPrescripcion, fechaFinPrescripcion);
+    public List<Prescripcion> BuscarPorFechaInicioFinalPrescripcion(String fechaInicioPrescripcion,
+            String fechaFinPrescripcion) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date inicio = sdf.parse(fechaInicioPrescripcion);
+        Date fin = sdf.parse(fechaFinPrescripcion);
+
+        return dao.findByFechaInicioPrescripcionBetween(inicio, fin);
     }
     
 }

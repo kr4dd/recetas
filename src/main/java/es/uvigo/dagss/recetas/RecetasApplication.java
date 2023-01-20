@@ -12,9 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 @ComponentScan("es.uvigo.dagss.recetas.*")
@@ -36,7 +34,6 @@ public class RecetasApplication implements CommandLineRunner {
 	RecetaDAO recetaDAO;
 
 	@Autowired
-	@JsonIgnore
 	PrescripcionDAO prescripcionDAO;
 
 	@Autowired
@@ -95,11 +92,12 @@ public class RecetasApplication implements CommandLineRunner {
 		paciente1.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
 		paciente1 = pacienteDAO.save(paciente1);
 		//-----------------MIRI------------------------------
-		Paciente paciente2 = new Paciente(TipoUsuario.PACIENTE, "pepe", "maria123", "44565968K", "pepe", "orlon",
+		Paciente paciente2 = new Paciente("pepe", passwordEncoder.encode("maria123"), "44565968K", "pepe", "orlon",
 				"987978787", "75986374", "000000", "maria@gmail.es", d2,
 				fecha1, EstadoPaciente.ACTIVO, centroDeSalud1, medico1,
 				null);
 
+		paciente2.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
 		paciente2 = pacienteDAO.save(paciente2);
 		//-----------------MIRI------------------------------
 		Direccion d3 = new Direccion("333", "Ourense", "44444", "Ourense");
@@ -135,9 +133,9 @@ public class RecetasApplication implements CommandLineRunner {
 		Prescripcion prescripcion2 =  new Prescripcion(new Date(), new Date(), 5.5, "agua", EstadoPrescripcion.ACTIVO, medico1, paciente2, recetas);
 		prescripcion2 = prescripcionDAO.save(prescripcion2);
 
-		Receta receta1 =  new Receta(EstadoReceta.PLANIFACADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
+		Receta receta1 =  new Receta(EstadoReceta.PLANIFICADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion1);
 		receta1 = recetaDAO.save(receta1);
-		Receta receta2 =  new Receta(EstadoReceta.PLANIFACADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion2);
+		Receta receta2 =  new Receta(EstadoReceta.PLANIFICADA, 1, new Date(), new Date(), d2, farmacia1, prescripcion2);
 		receta2 = recetaDAO.save(receta2);
 
 		Medicamento medicamento1 = new Medicamento("pepe", "cocaina", "familia1", 1, "España SL", EstadoMedicamento.ACTIVO, prescripcion1);
@@ -214,26 +212,26 @@ public class RecetasApplication implements CommandLineRunner {
 			Date fechasImposible2 = sdf.parse("2024-01-02");
 			Date fechasImposible3 = sdf.parse("2016-01-02");
 			Date fechasImposible4 = sdf.parse("2017-01-02");
-			List<Prescripcion> prescripciones = prescripcionDAO.findByStartDateBetween(fechasImposible1, fechasImposible2);
+			List<Prescripcion> prescripciones = prescripcionDAO.findByFechaInicioPrescripcionBetween(fechasImposible1, fechasImposible2);
 			System.out.println("[+]Todos las prescripcion con fecha imposible:");
 			for (Prescripcion p : prescripciones) {
 				System.out.println("\t" + p.getId());
 			}
-			List<Prescripcion> prescripciones2 = prescripcionDAO.findByStartDateBetween(new Date(), fechasImposible2);
+			List<Prescripcion> prescripciones2 = prescripcionDAO.findByFechaInicioPrescripcionBetween(new Date(), fechasImposible2);
 			System.out.println("-----------");
 			System.out.println("[+]Todos las prescripcion desde hoy al 2024:");
 			for (Prescripcion p : prescripciones2) {
 				System.out.println("\t" + p.getId());
 			}
 			System.out.println("-----------");
-			List<Prescripcion> prescripciones3 = prescripcionDAO.findByStartDateBetween(fechasImposible3, fechasImposible4);
+			List<Prescripcion> prescripciones3 = prescripcionDAO.findByFechaInicioPrescripcionBetween(fechasImposible3, fechasImposible4);
 			System.out.println("-----------");
 			System.out.println("[+]Todos las prescripcion entre 2016 y 2017 (deberia salir 1):");
 			for (Prescripcion p : prescripciones3) {
 				System.out.println("\t" + p.getId());
 			}
 			System.out.println("-----------");
-			List<Prescripcion> prescripciones4 = prescripcionDAO.findByStartDateBetween(fechasImposible3, fechasImposible1);
+			List<Prescripcion> prescripciones4 = prescripcionDAO.findByFechaInicioPrescripcionBetween(fechasImposible3, fechasImposible1);
 			System.out.println("-----------");
 			System.out.println("[+]Todos las prescripcion entre 2016 y 2024 deberian salir todas:");
 			for (Prescripcion p : prescripciones4) {
@@ -243,8 +241,8 @@ public class RecetasApplication implements CommandLineRunner {
 		} catch (Exception e) {
 			
 		}
-		List<Receta> recetas2 = recetaDAO.findByNumTarjetaSanitaria("8569785");
-		System.out.println("[+]Todos las recetas con ese numero de trajeta sanitaria:");
+		List<Receta> recetas2 = recetaDAO.findByNumTarjetaSanitaria("75986374");
+		System.out.println("[+]Todos las recetas con ese numero de tarjeta sanitaria:");
 		for (Receta r : recetas2) {
 			System.out.println("\t" + r.getNumReceta());
 		}

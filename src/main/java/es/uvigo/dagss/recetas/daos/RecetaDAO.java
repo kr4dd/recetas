@@ -8,7 +8,7 @@ import java.util.List;
 public interface RecetaDAO extends JpaRepository<Receta, Long> {
     /*DAO HECHO POR MIRI*/
 
-    @Query("SELECT r FROM Receta r WHERE r.prescripcion.paciente.numTarjetaSanitaria = :numTarjetaSanitaria")
+    @Query("SELECT r FROM Receta r JOIN r.prescripcion p JOIN p.paciente pa WHERE pa.numTarjetaSanitaria = :numTarjetaSanitaria")
     List<Receta> findByNumTarjetaSanitaria(@Param("numTarjetaSanitaria") String numTarjetaSanitaria);
     
     List<Receta> findByPrescripcionId(Long id);

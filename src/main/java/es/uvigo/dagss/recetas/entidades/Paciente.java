@@ -126,7 +126,7 @@ public class Paciente extends Usuario implements Serializable {
         return dni;
     }
 
-    public void setDNI(String DNI) {
+    public void setDNI(String dni) {
         this.dni = dni;
     }
 
