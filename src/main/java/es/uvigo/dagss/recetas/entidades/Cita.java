@@ -2,7 +2,6 @@ package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @DiscriminatorValue(value = "CITA")
