@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,8 @@ public class RecetasController {
 
     @Autowired
     RecetaService recetaService;
-    
+
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
     @GetMapping()
     public ResponseEntity<List<Receta>> buscarTodos(
             @RequestParam(name = "prescripcion", required = false) Long prescripcion,
@@ -57,7 +59,8 @@ public class RecetasController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Receta> buscarPorNumReceta(@PathVariable("id") Long numReceta) {
         Optional<Receta> receta = recetaService.buscarPorId(numReceta);
@@ -69,6 +72,7 @@ public class RecetasController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Receta> crear(@RequestBody Receta receta) {
         try {
@@ -83,6 +87,7 @@ public class RecetasController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable("id") Long numReceta) {
         try {
@@ -105,6 +110,7 @@ public class RecetasController {
         }
     }
 
+    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Receta> modificar(@PathVariable("id") Long id, @RequestBody Receta receta) {
         Optional<Receta> recetaOptional = recetaService.buscarPorId(id);
@@ -129,6 +135,7 @@ public class RecetasController {
         }
 
     }
+
     private URI crearURIReceta(Receta receta) {
         return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(receta.getNumReceta()).toUri();
     }

@@ -70,11 +70,11 @@ public class PruebaController {
 //        return "Accesible solo a administradores";
 //    }
 
-    @GetMapping("/recetas")
-    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
-    public String paraRecetas() {
-        return "Accesible solo a pacientes o farmacias";
-    }
+//    @GetMapping("/recetas")
+//    @PreAuthorize("hasRole('PACIENTE') or hasRole('FARMACIA')")
+//    public String paraRecetas() {
+//        return "Accesible solo a pacientes o farmacias";
+//    }
 
 //    @GetMapping("/prescripciones")
 //    @PreAuthorize("hasRole('MEDICO') or hasRole('PACIENTE')")
