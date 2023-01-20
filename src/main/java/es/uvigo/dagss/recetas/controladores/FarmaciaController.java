@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping(path = "/api/farmacia", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FarmaciaController {
@@ -25,35 +24,22 @@ public class FarmaciaController {
 
     @GetMapping()
     public ResponseEntity<List<Farmacia>> buscarTodos(
-            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "nombreEstablecimiento", required = false) String nombreEstablecimiento,
             @RequestParam(name = "localidad", required = false) String localidad,
             @RequestParam(name = "provincia", required = false) String provincia,
-            @RequestParam(name = "email", required = false) String email,
-            @RequestParam(name = "telefono", required = false) String telefono,
-            @RequestParam(name = "estado", required = false) String estado,
-            @RequestParam(name = "domicilio", required = false) String domicilio,
-            @RequestParam(name = "codigoPostal", required = false) String codigoPostal)
-    {
+            @RequestParam(name = "estado", required = false) String estado) {
 
         try {
             List<Farmacia> resultado = new ArrayList<>();
 
-            if (nombre != null) {
-                resultado = farmaciaService.buscarPorNombreEstablecimiento(nombre);
+            if (nombreEstablecimiento != null) {
+                resultado = farmaciaService.buscarPorNombreEstablecimiento(nombreEstablecimiento);
             } else if (localidad != null) {
                 resultado = farmaciaService.buscarPorLocalidad(localidad);
             } else if (provincia != null) {
                 resultado = farmaciaService.buscarPorProvincia(provincia);
-            }else if (email != null) {
-                resultado = farmaciaService.buscarPorEmail(email);
-            }else if (telefono != null) {
-                resultado = farmaciaService.buscarPorTelefono(telefono);
-            }else if (estado != null) {
+            } else if (estado != null) {
                 resultado = farmaciaService.buscarPorEstado(estado);
-            }else if (domicilio != null) {
-                resultado = farmaciaService.buscarPorDomicilio(domicilio);
-            } else if (codigoPostal != null) {
-                resultado = farmaciaService.buscarPorCodigoPostal(codigoPostal);
             } else {
                 resultado = farmaciaService.buscarTodos();
             }
@@ -63,7 +49,7 @@ public class FarmaciaController {
             }
 
             return new ResponseEntity<>(resultado, HttpStatus.OK);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -84,9 +70,11 @@ public class FarmaciaController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Farmacia> crear(@RequestBody Farmacia farmacia) {
         try {
-            //Creamos uno nuevo si no existe
+            // Creamos uno nuevo si no existe
             Farmacia nuevoFarmacia = farmaciaService.crear(farmacia);
+            nuevoFarmacia.setPassword(farmacia.getNumColegiado());
             URI uri = crearURIFarmacia(nuevoFarmacia);
+            farmaciaService.modificar(nuevoFarmacia);
 
             return ResponseEntity.created(uri).body(nuevoFarmacia);
 
@@ -103,7 +91,7 @@ public class FarmaciaController {
                 Farmacia nuevoFarmacia = farmacia.get();
                 nuevoFarmacia.setEstado(EstadoFarmaceutico.INACTIVO);
 
-                //Fijar farmacia inactivo
+                // Fijar farmacia inactivo
                 farmaciaService.modificar(nuevoFarmacia);
 
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -126,6 +114,9 @@ public class FarmaciaController {
             Farmacia nuevoFarmacia = farmaciaOptional.get();
 
             nuevoFarmacia.setNombreEstablecimiento(farmacia.getNombreEstablecimiento());
+            nuevoFarmacia.setApellidosFarmaceutico(farmacia.getApellidosFarmaceutico());
+            nuevoFarmacia.setDNI(farmacia.getDNI());
+            nuevoFarmacia.setNumColegiado(farmacia.getNumColegiado());
             nuevoFarmacia.setDireccion(farmacia.getDireccion());
             nuevoFarmacia.setTelefono(farmacia.getTelefono());
             nuevoFarmacia.setEmail(farmacia.getEmail());

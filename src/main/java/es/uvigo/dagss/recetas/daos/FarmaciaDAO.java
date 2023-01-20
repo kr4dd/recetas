@@ -22,10 +22,22 @@ public interface FarmaciaDAO extends JpaRepository<Farmacia, Long> {
     List<Farmacia> findByTelefonoContaining(String telefono);
     List<Farmacia> findByEstadoContaining(String estado);
 
-    @Query("SELECT f FROM Farmacia AS f WHERE f.direccion.domicilio LIKE %:domicilio%")
+/*     @Query("SELECT f FROM Farmacia AS f WHERE f.direccion.domicilio LIKE %:domicilio%")
     List<Farmacia> findByDireccionDomicilio(@Param("domicilio") String domicilio);
     
     @Query("SELECT f FROM Farmacia AS f WHERE f.direccion.codigoPostal LIKE %:codigoPostal%")
     List<Farmacia> findByDireccionCodigoPostal(String codigoPostal);
+
+    @Query("SELECT f FROM Farmacia AS f WHERE f.nombreFarmaceutico LIKE %:nombreFarmaceutico%")
+    List<Farmacia> findByNombreFarmaceutico(@Param("nombreFarmaceutico") String nombreFarmaceutico);
+
+    @Query("SELECT f FROM Farmacia AS f WHERE f.apellidosFarmaceutico LIKE %:apellidosFarmaceutico%")
+    List<Farmacia> findByApellidosFarmaceutico(@Param("apellidosFarmaceutico") String apellidosFarmaceutico);
+    
+    @Query("SELECT f FROM Farmacia AS f WHERE f.apellidosFarmaceutico LIKE %:dni%")
+    List<Farmacia> findByDNI(@Param("dni") String dni);
+    
+    @Query("SELECT f FROM Farmacia AS f WHERE f.numColegiado LIKE %:numColegiado%")
+    List<Farmacia> findByNumColegiado(@Param("numColegiado") String numColegiado); */
 
 }

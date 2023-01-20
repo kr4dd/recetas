@@ -14,14 +14,14 @@ public interface FarmaciaService {
     List<Farmacia> buscarPorNombreEstablecimiento(String nombreEstablecimiento);
     List<Farmacia> buscarPorLocalidad(String localidad);
     List<Farmacia> buscarPorProvincia(String provincia);
+    List<Farmacia> buscarPorEstado(String estado);
 
-
-    //Tampoco encontre historias, pero lo dejamos????????
+/*     List<Farmacia> buscarPorDomicilio(String domicilio);
+    List<Farmacia> buscarPorCodigoPostal(String codigoPostal);
     List<Farmacia> buscarPorEmail(String email);
     List<Farmacia> buscarPorTelefono(String telefono);
-    List<Farmacia> buscarPorEstado(String estado);
-    List<Farmacia> buscarPorDomicilio(String domicilio);
-    List<Farmacia> buscarPorCodigoPostal(String codigoPostal);
+ */
+
 
 
 }

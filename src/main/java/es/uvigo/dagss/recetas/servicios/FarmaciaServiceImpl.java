@@ -37,7 +37,7 @@ public class FarmaciaServiceImpl implements FarmaciaService{
     @Override
     @Transactional(readOnly = true)
     public Optional<Farmacia> buscarPorId(Long id) {
-        return Optional.empty();
+        return dao.findById(id);
     }
 
     @Override
@@ -68,6 +68,13 @@ public class FarmaciaServiceImpl implements FarmaciaService{
 
     @Override
     @Transactional(readOnly = true)
+    public List<Farmacia> buscarPorEstado(String estado) {
+        
+        return dao.findByEstadoContaining(estado);
+    }
+
+/*     @Override
+    @Transactional(readOnly = true)
     public List<Farmacia> buscarPorEmail(String email) {
         
         return dao.findByEmailContaining(email);
@@ -82,13 +89,6 @@ public class FarmaciaServiceImpl implements FarmaciaService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<Farmacia> buscarPorEstado(String estado) {
-        
-        return dao.findByEstadoContaining(estado);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<Farmacia> buscarPorDomicilio(String domicilio) {
         
         return dao.findByDireccionDomicilio(domicilio);
@@ -99,6 +99,6 @@ public class FarmaciaServiceImpl implements FarmaciaService{
     public List<Farmacia> buscarPorCodigoPostal(String codigoPostal) {
         
         return dao.findByDireccionCodigoPostal(codigoPostal);
-    }
+    } */
     
 }
