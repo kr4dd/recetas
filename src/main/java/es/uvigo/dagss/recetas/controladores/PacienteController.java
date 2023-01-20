@@ -2,19 +2,19 @@ package es.uvigo.dagss.recetas.controladores;
 
 import es.uvigo.dagss.recetas.entidades.EstadoPaciente;
 import es.uvigo.dagss.recetas.entidades.Paciente;
+import es.uvigo.dagss.recetas.entidades.TipoUsuario;
 import es.uvigo.dagss.recetas.servicios.PacienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/api/pacientes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,8 +23,9 @@ public class PacienteController {
     @Autowired
     PacienteService pacienteService;
 
-    // @RequestParam(name = "estadopaciente", required = false) EstadoPaciente
-    // estado
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @GetMapping()
     public ResponseEntity<List<Paciente>> buscarTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
@@ -32,6 +33,7 @@ public class PacienteController {
             @RequestParam(name = "centroDeSalud", required = false) Long centroDeSalud,
             @RequestParam(name = "localidad", required = false) String localidad,
             @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "numtarjeta", required = false) String numtarjeta,
             @RequestParam(name = "estado", required = false) String estado) {
 
         try {
@@ -47,6 +49,10 @@ public class PacienteController {
                 resultado = pacienteService.buscarPorProvincia(provincia);
             } else if (centroDeSalud != null) {
                 resultado = pacienteService.buscarCentroDeSaludPorId(centroDeSalud);
+            } else if (estado != null) {
+                resultado = pacienteService.buscarPorEstado(estado);
+            }else if (numtarjeta != null) {
+                resultado = pacienteService.buscarPorNumTarjetaSanitaria(numtarjeta);
             } else {
                 resultado = pacienteService.buscarTodos();
             }
@@ -77,6 +83,7 @@ public class PacienteController {
             // Creamos uno nuevo si no existe
             Paciente nuevoPaciente = pacienteService.crear(paciente);
 
+            nuevoPaciente.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
             // Establecer como contraseña por defecto al crearlo su numero de colegiado
             nuevoPaciente.setPassword(paciente.getDNI());
             pacienteService.modificar(nuevoPaciente);
@@ -125,13 +132,14 @@ public class PacienteController {
             nuevoPaciente.setDNI(paciente.getDNI());
             nuevoPaciente.setNumTarjetaSanitaria(paciente.getNumTarjetaSanitaria());
             nuevoPaciente.setNSS(paciente.getNSS());
-            nuevoPaciente.setDireccion(nuevoPaciente.getDireccion());
+            nuevoPaciente.setDireccion(paciente.getDireccion());
             nuevoPaciente.setTelefono(paciente.getTelefono());
             nuevoPaciente.setEmail(paciente.getEmail());
-            nuevoPaciente.setFechaNacimiento(nuevoPaciente.getFechaNacimiento());
+            nuevoPaciente.setFechaNacimiento(paciente.getFechaNacimiento());
             nuevoPaciente.setCentroDeSalud(paciente.getCentroDeSalud());
-            nuevoPaciente.setMedico(nuevoPaciente.getMedico());
+            nuevoPaciente.setMedico(paciente.getMedico());
             nuevoPaciente.setEstado(paciente.getEstado());
+            nuevoPaciente.setPassword(passwordEncoder.encode(paciente.getPassword()));
 
             pacienteService.modificar(nuevoPaciente);
 

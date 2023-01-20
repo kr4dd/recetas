@@ -3,6 +3,7 @@ package es.uvigo.dagss.recetas.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,17 +44,6 @@ public class CitaServiceImpl implements CitaService{
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Cita> buscarFechaMedico(String date, String dni) {
-        return dao.findByFechaAndMedicoDni(date, dni);
-    }
-
-    @Override
-    public List<Cita> buscarFechaPaciente(String date, String dni) {
-        return dao.findByFechaAndPacienteDni(date, dni);
-    }
-
-    @Override
     public List<Cita> buscarMedico(String dni) {
         return dao.findByMedicoDni(dni);
     }
@@ -70,12 +60,12 @@ public class CitaServiceImpl implements CitaService{
 
     @Override
     public List<Cita> buscarDuracion(String duracion) {
-        return dao.findByDuracion(duracion);
+        return dao.findByDuracion(Integer.parseInt(duracion));
     }
 
     @Override
     public List<Cita> buscarEstado(String estado) {
-        return dao.findByEstado(estado);
+        return dao.findByEstado(EstadoCita.valueOf(estado));
     }
 
     @Override

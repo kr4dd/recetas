@@ -97,17 +97,14 @@ public class CitaController {
     public ResponseEntity<Cita> crear(@RequestBody Cita cita) {
         try {
             Cita nuevaCita = citaService.crear(cita);
-            nuevaCita.setPaciente(cita.getPaciente());
-            nuevaCita.setMedico(cita.getMedico());
-            nuevaCita.setFechaYHora(cita.getFechaYHora());
+
             if (cita.getDuracion() == null) {
                 nuevaCita.setDuracion(15);
-            } else {
-                nuevaCita.setDuracion(cita.getDuracion());
+                citaService.modificar(nuevaCita);
             }
-            nuevaCita.setEstado(cita.getEstado());
+
             URI uri = crearURICita(nuevaCita);
-            citaService.crear(nuevaCita);
+
             return ResponseEntity.created(uri).body(nuevaCita);
 
         } catch (Exception e) {
@@ -149,11 +146,13 @@ public class CitaController {
             nuevaCita.setPaciente(cita.getPaciente());
             nuevaCita.setMedico(cita.getMedico());
             nuevaCita.setFechaYHora(cita.getFechaYHora());
+
             if (cita.getDuracion() == null) {
                 nuevaCita.setDuracion(15);
             } else {
                 nuevaCita.setDuracion(cita.getDuracion());
             }
+
             nuevaCita.setEstado(cita.getEstado());
 
             citaService.modificar(nuevaCita);

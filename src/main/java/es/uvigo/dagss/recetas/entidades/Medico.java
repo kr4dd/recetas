@@ -69,32 +69,6 @@ public class Medico extends Usuario implements Serializable {
         this.citas = citas;
     }
 
-//    public Medico(TipoUsuario tipo, String dni, String nombre, String apellidos, String numColegiado, String telefono, String email, EstadoMedico estado, CentroDeSalud centroDeSalud, List<Cita> citas) {
-//        super(tipo);
-//        this.dni = dni;
-//        this.nombre = nombre;
-//        this.apellidos = apellidos;
-//        this.numColegiado = numColegiado;
-//        this.telefono = telefono;
-//        this.email = email;
-//        this.estado = estado;
-//        this.centroDeSalud = centroDeSalud;
-//        this.citas = citas;
-//    }
-//
-//    public Medico(TipoUsuario tipo, String login, String password, String dni, String nombre, String apellidos, String numColegiado, String telefono, String email, EstadoMedico estado, CentroDeSalud centroDeSalud, List<Cita> citas) {
-//        super(tipo, login, password);
-//        this.dni = dni;
-//        this.nombre = nombre;
-//        this.apellidos = apellidos;
-//        this.numColegiado = numColegiado;
-//        this.telefono = telefono;
-//        this.email = email;
-//        this.estado = estado;
-//        this.centroDeSalud = centroDeSalud;
-//        this.citas = citas;
-//    }
-
     public String getDni() {
         return dni;
     }

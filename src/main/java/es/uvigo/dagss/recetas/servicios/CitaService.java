@@ -19,9 +19,5 @@ public interface CitaService {
     List<Cita> buscarHora(String hora);
     List<Cita> buscarDuracion(String duracion);
     List<Cita> buscarEstado(String estado);
-    List<Cita> buscarFechaMedico(String date, String dni);
-    List<Cita> buscarFechaPaciente(String date, String dni);
 
-
-    //List<Cita> BuscarPorFechaInicioFinalPrescripcion(Date fechaInicioPrescripcion, Date fechaFinPrescripcion);
 }

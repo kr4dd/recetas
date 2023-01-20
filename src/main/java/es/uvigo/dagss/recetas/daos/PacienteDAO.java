@@ -1,5 +1,8 @@
 package es.uvigo.dagss.recetas.daos;
 
+import es.uvigo.dagss.recetas.entidades.CentroDeSalud;
+import es.uvigo.dagss.recetas.entidades.EstadoCentroSalud;
+import es.uvigo.dagss.recetas.entidades.EstadoPaciente;
 import es.uvigo.dagss.recetas.entidades.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,7 +37,8 @@ public interface PacienteDAO extends JpaRepository<Paciente, Long> {
     @Query("SELECT p FROM Paciente AS p WHERE p.medico.dni LIKE %:dni%")
     List<Paciente> findByMedico(@Param("dni") String dni);
 
-    List<Paciente> findByNSS(String nSS);
     List<Paciente> findByNumTarjetaSanitaria(String numTarjetaSanitaria);
+    List<Paciente> findByEstado(EstadoPaciente estado);
+
     List<Paciente> findByApellidosContaining(String apellidos);
 }

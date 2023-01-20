@@ -2,6 +2,7 @@ package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
 
+import es.uvigo.dagss.recetas.entidades.EstadoCita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -43,11 +44,9 @@ public interface CitaDAO extends JpaRepository<Cita, Long> {
     @Query("SELECT c FROM Cita AS c WHERE c.fechaYHora.hora LIKE %:hora%")
     List<Cita> findByFechaYHoraHora(@Param("hora") String hora);
 
-    @Query("SELECT c FROM Cita AS c WHERE c.duracion LIKE %:duracion%")
-    List<Cita> findByDuracion(@Param("duracion")  String duracion);
+    List<Cita> findByDuracion(Integer duracion);
 
-    @Query("SELECT c FROM Cita AS c WHERE c.estado LIKE %:estado%")
-    List<Cita> findByEstado(@Param("estado") String estado);
+    List<Cita> findByEstado(EstadoCita estado);
 
 
 }

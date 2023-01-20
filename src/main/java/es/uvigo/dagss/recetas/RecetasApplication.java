@@ -85,12 +85,17 @@ public class RecetasApplication implements CommandLineRunner {
 		Medico medico1 = new Medico("jose", passwordEncoder.encode("jose"), "77758585L", "jose"
 				, "fernan", "7aa1xl", "987878787", "josemedico@gmail.es",
 				EstadoMedico.ACTIVO, centroDeSalud1, null);
-
 		medico1.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.MEDICO)));
 		medico1 = medicoDAO.save(medico1);
+
+		Medico medico2 = new Medico("laura", passwordEncoder.encode("laura123"), "84738928M", "laura", "perez", "9vj5gs",
+				"982356678", "lauramedico@gmail.es",
+				EstadoMedico.ACTIVO, centroDeSalud2, null);
+		medico2.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.MEDICO)));
 		medico2 = medicoDAO.save(medico2);
 
 		Date fecha1 = new Date();
+
 		Paciente paciente1 = new Paciente("maria", passwordEncoder.encode("maria"), "44565968K", "maria", "orlon",
 				"987978787", "75986374", "8569785", "maria@gmail.es", d2,
 				fecha1, EstadoPaciente.ACTIVO, centroDeSalud1, medico1,
@@ -98,7 +103,7 @@ public class RecetasApplication implements CommandLineRunner {
 
 		paciente1.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
 		paciente1 = pacienteDAO.save(paciente1);
-		//-----------------MIRI------------------------------
+
 		Paciente paciente2 = new Paciente("pepe", passwordEncoder.encode("maria123"), "44565968K", "pepe", "orlon",
 				"987978787", "75986374", "000000", "maria@gmail.es", d2,
 				fecha1, EstadoPaciente.ACTIVO, centroDeSalud1, medico1,
@@ -106,21 +111,34 @@ public class RecetasApplication implements CommandLineRunner {
 
 		paciente2.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
 		paciente2 = pacienteDAO.save(paciente2);
+
+
+		Paciente paciente3 = new Paciente("manuela", passwordEncoder.encode("manuela123"), "74546774Z", "manuela", "paez",
+				"885618290", "76289356", "8730982", "manuela@hotmail.com", d4,
+				fecha1, EstadoPaciente.ACTIVO, centroDeSalud2, medico1,
+				null);
+		paciente3.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.PACIENTE)));
+		paciente3 = pacienteDAO.save(paciente3);
+
 		//-----------------MIRI------------------------------
-		Direccion d3 = new Direccion("333", "Ourense", "44444", "Ourense");
 		Farmacia farmacia1 = new Farmacia("farma", passwordEncoder.encode("farma"), "87574657P", "2983923", "farma@gmail.es",
 				"98874635", "gregory", "Marcialo",
-				"farmaGuarda", EstadoFarmaceutico.ACTIVO, d3);
+				"farmaGuarda", EstadoFarmaceutico.ACTIVO, d5);
 
 		farmacia1.setRoles(new HashSet<>(Arrays.asList(TipoUsuario.FARMACIA)));
 		farmacia1 = farmaciaDAO.save(farmacia1);
 
-		Farmacia farmacia3 = new Farmacia(TipoUsuario.FARMACIA, "farma3", "farma3", "97243236D", "7830289",
+		Farmacia farmacia2 = new Farmacia("farma2", passwordEncoder.encode("farma2"), "17244246F", "8735628",
+				"farmacia2@gmail.es",
+				"986117820", "Moncho", "Fernandez de la cruz santiago de santa maria",
+				"FarmaciaLuces", EstadoFarmaceutico.ACTIVO, d4);
+
+		Farmacia farmacia3 = new Farmacia("farma3", passwordEncoder.encode("farma3"), "97243236D", "7830289",
 				"farma3@gmail.es",
 				"889625378", "Juana", "Perez Fernandez",
 				"FarmaciaJuana", EstadoFarmaceutico.ACTIVO, d1);
 
-		Farmacia farmacia4 = new Farmacia(TipoUsuario.FARMACIA, "farma4", "farma4", "12389765F", "7659867",
+		Farmacia farmacia4 = new Farmacia("farma4", passwordEncoder.encode("farma4"), "12389765F", "7659867",
 				"farma4@gmail.es",
 				"663892678", "Jose", "Borrego da Silva",
 				"SilvaFarma", EstadoFarmaceutico.ACTIVO, d5);

@@ -3,6 +3,7 @@ package es.uvigo.dagss.recetas.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import es.uvigo.dagss.recetas.entidades.EstadoPaciente;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,11 @@ public class PacienteServiceImpl implements PacienteService {
     @Transactional(readOnly = true)
     public List<Paciente> buscarPorNumTarjetaSanitaria(String numTarjetaSanitaria) {
         return dao.findByNumTarjetaSanitaria(numTarjetaSanitaria);
+    }
+
+    @Override
+    public List<Paciente> buscarPorEstado(String estado) {
+        return dao.findByEstado(EstadoPaciente.valueOf(estado));
     }
 
     @Override

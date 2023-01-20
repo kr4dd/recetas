@@ -3,6 +3,7 @@ package es.uvigo.dagss.recetas.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import es.uvigo.dagss.recetas.entidades.EstadoFarmaceutico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,35 +71,7 @@ public class FarmaciaServiceImpl implements FarmaciaService{
     @Transactional(readOnly = true)
     public List<Farmacia> buscarPorEstado(String estado) {
         
-        return dao.findByEstadoContaining(estado);
+        return dao.findByEstado(EstadoFarmaceutico.valueOf(estado));
     }
-
-/*     @Override
-    @Transactional(readOnly = true)
-    public List<Farmacia> buscarPorEmail(String email) {
-        
-        return dao.findByEmailContaining(email);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Farmacia> buscarPorTelefono(String telefono) {
-        
-        return dao.findByTelefonoContaining(telefono);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Farmacia> buscarPorDomicilio(String domicilio) {
-        
-        return dao.findByDireccionDomicilio(domicilio);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Farmacia> buscarPorCodigoPostal(String codigoPostal) {
-        
-        return dao.findByDireccionCodigoPostal(codigoPostal);
-    } */
     
 }

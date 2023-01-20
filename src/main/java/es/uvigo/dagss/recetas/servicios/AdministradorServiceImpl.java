@@ -2,6 +2,7 @@ package es.uvigo.dagss.recetas.servicios;
 
 import es.uvigo.dagss.recetas.daos.AdministradorDAO;
 import es.uvigo.dagss.recetas.entidades.Administrador;
+import es.uvigo.dagss.recetas.entidades.EstadoAdministrador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +60,6 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     @Transactional(readOnly = true)
     public List<Administrador> buscarPorEstado(String estado) {
-        return dao.findByEstadoContaining(estado);
+        return dao.findByEstado(EstadoAdministrador.valueOf(estado));
     }
 }

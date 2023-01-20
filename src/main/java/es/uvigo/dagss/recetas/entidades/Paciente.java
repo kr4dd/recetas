@@ -52,7 +52,7 @@ public class Paciente extends Usuario implements Serializable {
     private List<Cita> citas = new ArrayList<>();
 
     public Paciente() {
-        //super(TipoUsuario.PACIENTE);
+
     }
 
     public Paciente(String dni, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
@@ -87,43 +87,6 @@ public class Paciente extends Usuario implements Serializable {
         this.medico = medico;
         this.citas = citas;
     }
-
-//    public Paciente(TipoUsuario tipo, String dni, String nombre, String apellidos, String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion, Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico, List<Cita> citas) {
-//        super(tipo);
-//        this.dni = dni;
-//        this.nombre = nombre;
-//        this.apellidos = apellidos;
-//        this.telefono = telefono;
-//        this.numTarjetaSanitaria = numTarjetaSanitaria;
-//        this.NSS = NSS;
-//        this.email = email;
-//        this.direccion = direccion;
-//        this.fechaNacimiento = fechaNacimiento;
-//        this.estado = estado;
-//        this.centroDeSalud = centroDeSalud;
-//        this.medico = medico;
-//        this.citas = citas;
-//    }
-//
-//    public Paciente(TipoUsuario tipo, String login, String password, String dni, String nombre, String apellidos,
-//                    String telefono, String numTarjetaSanitaria, String NSS, String email, Direccion direccion,
-//                    Date fechaNacimiento, EstadoPaciente estado, CentroDeSalud centroDeSalud, Medico medico,
-//                    List<Cita> citas) {
-//        super(tipo, login, password);
-//        this.dni = dni;
-//        this.nombre = nombre;
-//        this.apellidos = apellidos;
-//        this.telefono = telefono;
-//        this.numTarjetaSanitaria = numTarjetaSanitaria;
-//        this.NSS = NSS;
-//        this.email = email;
-//        this.direccion = direccion;
-//        this.fechaNacimiento = fechaNacimiento;
-//        this.estado = estado;
-//        this.centroDeSalud = centroDeSalud;
-//        this.medico = medico;
-//        this.citas = citas;
-//    }
 
     public String getDNI() {
         return dni;

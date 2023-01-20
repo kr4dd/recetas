@@ -13,7 +13,7 @@ public class Cita implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoCita estado;
 
-    private Integer duracion; //Minutos
+    private Integer duracion; //En minutos
 
     @Embedded
     private FechaYhora fechaYHora;

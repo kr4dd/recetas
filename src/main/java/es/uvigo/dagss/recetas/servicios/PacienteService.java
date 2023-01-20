@@ -9,13 +9,13 @@ public interface PacienteService {
     Paciente crear(Paciente paciente);
     Paciente modificar(Paciente paciente);
     void eliminar(Paciente paciente);
-    //Optional<Paciente> buscarPorDNI(String dni);
     Optional<Paciente> buscarPorId(Long id);
 
     List<Paciente> buscarTodos();
 
     List<Paciente> buscarPorNombre(String nombre);
     List<Paciente> buscarPorNumTarjetaSanitaria(String numTarjetaSanitaria);
+    List<Paciente> buscarPorEstado(String estado);
     List<Paciente> buscarPorApellidos(String apellidos);
     List<Paciente> buscarCentroDeSaludPorId(Long id);
     List<Paciente> buscarPorLocalidad(String localidad);

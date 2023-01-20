@@ -16,12 +16,6 @@ public interface FarmaciaService {
     List<Farmacia> buscarPorProvincia(String provincia);
     List<Farmacia> buscarPorEstado(String estado);
 
-/*     List<Farmacia> buscarPorDomicilio(String domicilio);
-    List<Farmacia> buscarPorCodigoPostal(String codigoPostal);
-    List<Farmacia> buscarPorEmail(String email);
-    List<Farmacia> buscarPorTelefono(String telefono);
- */
-
 
 
 }
