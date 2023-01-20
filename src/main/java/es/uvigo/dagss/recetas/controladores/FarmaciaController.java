@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/api/farmacia", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/farmacias", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FarmaciaController {
 
     @Autowired
@@ -70,7 +70,7 @@ public class FarmaciaController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Farmacia> crear(@RequestBody Farmacia farmacia) {
         try {
-            // Creamos uno nuevo si no existe
+            // Creamos una nueva si no existe
             Farmacia nuevoFarmacia = farmaciaService.crear(farmacia);
             nuevoFarmacia.setPassword(farmacia.getNumColegiado());
             URI uri = crearURIFarmacia(nuevoFarmacia);

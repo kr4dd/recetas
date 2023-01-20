@@ -29,9 +29,10 @@ public class PacienteController {
     public ResponseEntity<List<Paciente>> buscarTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "apellidos", required = false) String apellidos,
-            @RequestParam(name = "centrosalud", required = false) Long centrosalud,
+            @RequestParam(name = "centroDeSalud", required = false) Long centroDeSalud,
             @RequestParam(name = "localidad", required = false) String localidad,
-            @RequestParam(name = "provincia", required = false) String provincia) {
+            @RequestParam(name = "provincia", required = false) String provincia,
+            @RequestParam(name = "estado", required = false) String estado) {
 
         try {
             List<Paciente> resultado = new ArrayList<>();
@@ -44,8 +45,8 @@ public class PacienteController {
                 resultado = pacienteService.buscarPorLocalidad(localidad);
             } else if (provincia != null) {
                 resultado = pacienteService.buscarPorProvincia(provincia);
-            } else if (centrosalud != null) {
-                resultado = pacienteService.buscarCentroDeSaludPorId(centrosalud);
+            } else if (centroDeSalud != null) {
+                resultado = pacienteService.buscarCentroDeSaludPorId(centroDeSalud);
             } else {
                 resultado = pacienteService.buscarTodos();
             }
