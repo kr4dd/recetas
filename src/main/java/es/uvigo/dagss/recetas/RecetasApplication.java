@@ -289,9 +289,9 @@ public class RecetasApplication implements CommandLineRunner {
 		}
 		System.out.println("-----------");
 
-		List<Cita> citasPaciente = citaDAO.findByFechaAndPacienteDni("2022-12-23", "34526784K"); // 44565968K 34526784K 74546774Z 44526576L
+/* 		List<Cita> citasPaciente = citaDAO.findByFechaAndPacienteDni("2022-12-23", "34526784K"); // 44565968K 34526784K 74546774Z 44526576L
 		List<Cita> citasMedico = citaDAO.findByFechaAndMedicoDni("2022-11-17", "77758585L"); //77758585L 84738928M 
-
+ */
 
 /* 		FechaYhora fechaYhora2 = new FechaYhora("2022-12-23", "14:31:15:209");
 		FechaYhora fechaYhora3 = new FechaYhora("2022-11-17", "16:15:05:209");
@@ -302,7 +302,7 @@ public class RecetasApplication implements CommandLineRunner {
 		Cita cita3 = new Cita(EstadoCita.PLANIFICADA, 15, fechaYhora3, medico1, paciente3);
 		Cita cita4 = new Cita(EstadoCita.PLANIFICADA, 55, fechaYhora4, medico2, paciente1); */
 
-		System.out.println("[+]Todos las citas por paciente y fecha:");
+/* 		System.out.println("[+]Todos las citas por paciente y fecha:");
 		for (Cita c : citasPaciente) {
 			System.out.println("\t" + c.toString());
 		}
@@ -312,7 +312,7 @@ public class RecetasApplication implements CommandLineRunner {
 		for (Cita c : citasMedico) {
 			System.out.println("\t" + c.toString());
 		}
-		System.out.println("-----------");
+		System.out.println("-----------"); */
 	}
 
 }

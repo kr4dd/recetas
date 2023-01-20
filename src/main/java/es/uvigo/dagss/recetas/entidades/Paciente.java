@@ -5,11 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Id;
 
 @Entity
 @DiscriminatorValue(value = "PACIENTE")
 public class Paciente extends Usuario implements Serializable {
-
+    
     @Column(name = "DNI_PACIENTE")
     private String dni;
 
@@ -109,7 +110,7 @@ public class Paciente extends Usuario implements Serializable {
         return dni;
     }
 
-    public void setDNI(String DNI) {
+    public void setDNI(String dni) {
         this.dni = dni;
     }
 

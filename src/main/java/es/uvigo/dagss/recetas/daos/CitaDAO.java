@@ -1,15 +1,11 @@
 package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.Cita;
-import es.uvigo.dagss.recetas.entidades.FechaYhora;
-import es.uvigo.dagss.recetas.entidades.Medico;
-import es.uvigo.dagss.recetas.entidades.Paciente;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface CitaDAO extends JpaRepository<Cita, Long> {

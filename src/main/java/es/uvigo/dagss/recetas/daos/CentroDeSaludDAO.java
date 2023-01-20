@@ -2,7 +2,6 @@ package es.uvigo.dagss.recetas.daos;
 
 import es.uvigo.dagss.recetas.entidades.CentroDeSalud;
 import es.uvigo.dagss.recetas.entidades.EstadoCentroSalud;
-import es.uvigo.dagss.recetas.entidades.Medico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
