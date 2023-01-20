@@ -8,22 +8,9 @@ import java.util.List;
 public interface RecetaDAO extends JpaRepository<Receta, Long> {
     /*DAO HECHO POR MIRI*/
 
-    /*, desde la opción "Gestión de receta" se accede a un formulario, 
-    donde introduciendo el nº de tarjeta sanitaria de un paciente se accederá
-     a la lista de recetas que este estén en vigor para ese paciente, visualizándose 
-     las recetas existentes en el sistema disponibles para ser servidas al paciente 
-     indicado desde la fecha actual*/
-     /*
-      Para cada receta se mostrará los datos del medicamento de la correspondiente 
-      prescripción (principio activo, fabricante), los datos del médico que hizo la 
-      prescripción las fechas de validez de cada receta (inical y final) y el número
-       de unidades ("cajas") que se servirán en la receta
-     */
-    @Query("SELECT r FROM Receta AS r "+
-            "JOIN FETCH " +
-            "r.prescripcion p WHERE p.paciente.numTarjetaSanitaria LIKE %:patron%")
-    List<Receta> findByNumTarjetaSanit(@Param("patron") String patron);
-
+    @Query("SELECT r FROM Receta r WHERE r.prescripcion.paciente.numTarjetaSanitaria = :numTarjetaSanitaria")
+    List<Receta> findByNumTarjetaSanitaria(@Param("numTarjetaSanitaria") String numTarjetaSanitaria);
+    
     List<Receta> findByPrescripcionId(Long id);
 
     
