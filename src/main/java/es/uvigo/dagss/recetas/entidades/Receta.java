@@ -1,6 +1,9 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,9 +30,11 @@ public class Receta implements Serializable {
     private Direccion direccion;
 
     @ManyToOne
+    @JsonIgnore
     private Farmacia farmacia;
 
     @ManyToOne
+    @JsonIgnore
     private Prescripcion prescripcion;
 
     public Receta() {

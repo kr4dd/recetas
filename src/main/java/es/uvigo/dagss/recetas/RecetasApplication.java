@@ -29,14 +29,12 @@ public class RecetasApplication implements CommandLineRunner {
 	MedicoDAO medicoDAO;
 
 	@Autowired
-	@JsonIgnore
 	MedicamentoDAO medicamentoDAO;
 
 	@Autowired
 	RecetaDAO recetaDAO;
 
 	@Autowired
-	@JsonIgnore
 	PrescripcionDAO prescripcionDAO;
 
 	@Autowired

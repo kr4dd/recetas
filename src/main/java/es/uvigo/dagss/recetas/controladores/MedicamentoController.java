@@ -16,7 +16,6 @@ import es.uvigo.dagss.recetas.servicios.MedicamentoService;
 import es.uvigo.dagss.recetas.entidades.EstadoMedicamento;
 import es.uvigo.dagss.recetas.entidades.Medicamento;
 
-
 @RestController
 @RequestMapping(path = "/api/medicamentos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicamentoController {

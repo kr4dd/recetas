@@ -1,6 +1,9 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 @Entity
@@ -26,6 +29,7 @@ public class Medicamento implements Serializable {
     private EstadoMedicamento estado;
 
     @ManyToOne
+    @JsonIgnore
     private Prescripcion prescripcion;
 
     public Medicamento() {

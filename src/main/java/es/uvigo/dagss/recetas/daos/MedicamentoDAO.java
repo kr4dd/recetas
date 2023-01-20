@@ -23,3 +23,4 @@ public interface MedicamentoDAO extends JpaRepository<Medicamento, Long> {
     List<Medicamento> findByFamiliaFarmacos(String familia);*/
 
 }
+

@@ -1,6 +1,9 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,13 +30,16 @@ public class Prescripcion implements Serializable {
     private EstadoPrescripcion estado;
 
     @ManyToOne
+    @JsonIgnore
     private Medico medico;
 
     @ManyToOne
+    @JsonIgnore
     private Paciente paciente;
 
     @OneToMany(mappedBy = "prescripcion", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderBy("numReceta asc")
+    @JsonIgnore
     private List<Receta> recetas = new ArrayList<>();
 
     public Prescripcion() {
