@@ -73,11 +73,4 @@ spring.jpa.properties.hibernate.show_sql=true
 
 ```
 mvn spring-boot:run
-
-```
-
-# Ejecutar proyecto
-
-```
-mvn spring-boot:run
 ```
