@@ -61,8 +61,8 @@ nano src/main/resources/application.properties
 
 
 spring.datasource.url=jdbc:mysql://localhost:3306/recetas
-spring.datasource.username=recetas
-spring.datasource.password=recetas
+spring.datasource.username=dagss
+spring.datasource.password=dagss
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.show_sql=true
@@ -74,4 +74,10 @@ spring.jpa.properties.hibernate.show_sql=true
 ```
 mvn spring-boot:run
 
+```
+
+# Ejecutar proyecto
+
+```
+mvn spring-boot:run
 ```
